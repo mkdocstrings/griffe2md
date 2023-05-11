@@ -1,0 +1,27 @@
+{%- if docstring_sections -%}
+{% for section in docstring_sections %}
+{% if config.show_docstring_description and section.kind.value == "text" -%}
+{{ section.value }}
+{% elif config.show_docstring_attributes and section.kind.value == "attributes" -%}
+{% include "docstring/attributes.md" with context -%}
+{% elif config.show_docstring_parameters and section.kind.value == "parameters" -%}
+{% include "docstring/parameters.md" with context -%}
+{% elif config.show_docstring_other_parameters and section.kind.value == "other parameters" -%}
+{% include "docstring/other_parameters.md" with context -%}
+{% elif config.show_docstring_raises and section.kind.value == "raises" -%}
+{% include "docstring/raises.md" with context -%}
+{% elif config.show_docstring_warns and section.kind.value == "warns" -%}
+{% include "docstring/warns.md" with context -%}
+{% elif config.show_docstring_yields and section.kind.value == "yields" -%}
+{% include "docstring/yields.md" with context -%}
+{% elif config.show_docstring_receives and section.kind.value == "receives" -%}
+{% include "docstring/receives.md" with context -%}
+{% elif config.show_docstring_returns and section.kind.value == "returns" -%}
+{% include "docstring/returns.md" with context -%}
+{% elif config.show_docstring_examples and section.kind.value == "examples" -%}
+{% include "docstring/examples.md" with context -%}
+{% elif config.show_docstring_description and section.kind.value == "admonition" -%}
+{% include "docstring/admonition.md" with context -%}
+{% endif %}
+{% endfor %}
+{%- endif -%}

@@ -1,4 +1,37 @@
 # griffe2md
 
-This project is currently available to [sponsors](https://github.com/sponsors/pawamoy) only.
-See the documentation here: https://mkdocstrings.github.io/griffe2md.
+[![ci](https://github.com/mkdocstrings/griffe2md/workflows/ci/badge.svg)](https://github.com/mkdocstrings/griffe2md/actions?query=workflow%3Aci)
+[![documentation](https://img.shields.io/badge/docs-mkdocs%20material-blue.svg?style=flat)](https://mkdocstrings.github.io/griffe2md/)
+[![pypi version](https://img.shields.io/pypi/v/griffe2md.svg)](https://pypi.org/project/griffe2md/)
+[![gitpod](https://img.shields.io/badge/gitpod-workspace-blue.svg?style=flat)](https://gitpod.io/#https://github.com/mkdocstrings/griffe2md)
+[![gitter](https://badges.gitter.im/join%20chat.svg)](https://gitter.im/mkdocstrings/griffe2md)
+
+Output API docs to Markdown using Griffe.
+
+## Installation
+
+With `pip`:
+```bash
+pip install griffe2md
+```
+
+With [`pipx`](https://github.com/pipxproject/pipx):
+```bash
+python3.7 -m pip install --user pipx
+pipx install griffe2md
+```
+
+## Usage
+
+Simply call `griffe2md` with a package name, or the path to a package folder:
+
+```bash
+griffe2md markdown
+griffe2md path/to/my/src/package
+```
+
+Use the `o`, `--output` option to write to a file instead of standard output:
+
+```bash
+griffe2md markdown -o markdown.md
+```
