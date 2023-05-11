@@ -114,10 +114,9 @@ plugins:
           docstring_options:
             ignore_init_summary: true
           show_source: false
-- git-committers:
-    enabled: !ENV [DEPLOY, false]
-    repository: mkdocstrings/griffe2md
-
+# - git-committers:
+#     enabled: !ENV [DEPLOY, false]
+#     repository: mkdocstrings/griffe2md
 - minify:
     minify_html: !ENV [DEPLOY, false]
 
