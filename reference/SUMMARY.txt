@@ -1,0 +1,4 @@
+* [griffe2md](griffe2md/index.md)
+    * [cli](griffe2md/cli.md)
+    * [main](griffe2md/main.md)
+    * [rendering](griffe2md/rendering.md)
