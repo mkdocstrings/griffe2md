@@ -29,6 +29,7 @@ classifiers = [
 ]
 dependencies = [
     "griffe>=0.27.4",
+    "jinja2>=3.1.2",
     "mdformat>=0.7.16",
 ]
 
