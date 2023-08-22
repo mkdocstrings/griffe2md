@@ -96,3 +96,30 @@ a.insiders {
   vertical-align: bottom !important;
   width: 1.2rem;
 }
+
+.premium-sponsors {
+  text-align: center;
+}
+
+#silver-sponsors img {
+  height: 140px;
+}
+
+#bronze-sponsors img {
+  height: 140px;
+}
+
+#bronze-sponsors p {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+#bronze-sponsors a {
+  display: block;
+  flex-shrink: 0;
+}
+
+.sponsors-total {
+  font-weight: bold;
+}
