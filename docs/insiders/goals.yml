@@ -2,6 +2,6 @@ goals:
   500:
     name: PlasmaVac User Guide
     features:
-    - name: "[Project] Output API docs to Markdown using Griffe."
+    - name: "[Project] Output API docs to Markdown using Griffe"
       ref: /
       since: 2023/05/11
