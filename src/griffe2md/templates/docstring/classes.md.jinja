@@ -1,0 +1,17 @@
+{%- if config.docstring_section_style == "table" %}
+
+**{{ section.title or "Classes:" }}**
+
+Name | Description
+---- | -----------
+{%- for class in section.value %}
+[`{{ class.name }}`](#{{ obj.path }}.{{ class.name }}) | {{ class.description }}
+{%- endfor -%}
+
+{%- elif config.docstring_section_style == "list" %}
+
+**{{ section.title or "Classes:" }}**
+{% for class in section.value %}
+- [**{{ class.name }}**](#{{ obj.path }}.{{ class.name }}) – {{ class.description }}
+{%- endfor -%}
+{%- endif -%}

@@ -1,0 +1,17 @@
+{%- if config.docstring_section_style == "table" %}
+
+**{{ section.title or "Raises:" }}**
+
+Type | Description
+---- | -----------
+{%- for raises in section.value %}
+{%- if raises.annotation -%}{%- with expression = raises.annotation -%}<code>{%- include "expression.md.jinja" with context -%}</code>{%- endwith -%}{%- endif -%} | {{ raises.description }}
+{%- endfor -%}
+
+{%- elif config.docstring_section_style == "list" %}
+
+**{{ section.title or "Raises:" }}**
+{% for raises in section.value %}
+- {% if raises.annotation -%}{%- with expression = raises.annotation -%}<code>{%- include "expression.md.jinja" with context -%}</code>{%- endwith %} – {% endif -%}{{ raises.description }}
+{%- endfor -%}
+{%- endif -%}

@@ -14,11 +14,11 @@
 {%- if config.separate_signature -%}
 {%- if show_full_path -%}{{ attribute.path }}{%- else -%}{{ attribute.name }}{%- endif -%}
 {%- else -%}
-`
+<code>
 {%- if show_full_path -%}{{ attribute.path }}{%- else -%}{{ attribute.name }}{%- endif -%}
 {%- if attribute.annotation -%}: {{ attribute.annotation }}{%- endif -%}
 {%- if attribute.value -%} = {{ attribute.value }}{%- endif -%}
-`
+</code>
 {%- endif -%}
 {%- endfilter -%}
 
@@ -41,5 +41,5 @@
 {%- endif -%}
 
 {%- with docstring_sections = attribute.docstring.parsed -%}
-{%- include "docstring.md" with context -%}
+{%- include "docstring.md.jinja" with context -%}
 {%- endwith -%}

@@ -1,0 +1,17 @@
+{% with members_list = config.members if root_members else None %}
+{% if config.summary.modules %}
+{% include "summary/modules.md.jinja" with context %}
+{% endif %}
+
+{% if config.summary.classes %}
+{% include "summary/classes.md.jinja" with context %}
+{% endif %}
+
+{% if config.summary.functions %}
+{% include "summary/functions.md.jinja" with context %}
+{% endif %}
+
+{% if config.summary.attributes %}
+{% include "summary/attributes.md.jinja" with context %}
+{% endif %}
+{% endwith %}

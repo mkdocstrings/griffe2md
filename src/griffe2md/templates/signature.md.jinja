@@ -32,7 +32,7 @@
 {%- if config.show_signature_annotations and parameter.annotation is not none -%}
 {%- if config.separate_signature and config.signature_crossrefs -%}
 {%- with expression = parameter.annotation -%}
-{%- set ns.annotation -%}: {%- include "expression.md" with context -%}{%- endset -%}
+{%- set ns.annotation -%}: {%- include "expression.md.jinja" with context -%}{%- endset -%}
 {%- endwith -%}
 {%- else -%}
 {%- set ns.annotation = ": " + parameter.annotation|safe -%}
@@ -55,7 +55,7 @@
 {%- endfor -%}
 )
 {%- if config.show_signature_annotations and function.annotation -%} -> {%- if config.separate_signature and config.signature_crossrefs -%}
-{%- with expression = function.annotation -%}{%- include "expression.md" with context -%}{%- endwith -%}
+{%- with expression = function.annotation -%}{%- include "expression.md.jinja" with context -%}{%- endwith -%}
 {%- else -%}
 {{ function.annotation|safe }}
 {%- endif -%}

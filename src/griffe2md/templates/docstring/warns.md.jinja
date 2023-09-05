@@ -1,0 +1,17 @@
+{%- if config.docstring_section_style == "table" %}
+
+**{{ section.title or "Warns:" }}**
+
+Type | Description
+---- | -----------
+{%- for warns in section.value %}
+{%- if warns.annotation -%}{%- with expression = warns.annotation -%}<code>{%- include "expression.md.jinja" with context -%}</code>{%- endwith -%}{%- endif -%} | {{ warns.description }}
+{%- endfor -%}
+
+{%- elif config.docstring_section_style == "list" %}
+
+**{{ section.title or "Warns:" }}**
+{% for warns in section.value %}
+- {% if warns.annotation -%}{%- with expression = warns.annotation -%}<code>{%- include "expression.md.jinja" with context -%}</code>{%- endwith %} – {% endif -%}{{ warns.description }}
+{%- endfor -%}
+{%- endif -%}

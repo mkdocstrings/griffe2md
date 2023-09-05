@@ -8,16 +8,15 @@
 {%- set show_full_path = config.show_object_full_path -%}
 {%- endif -%}
 
+{%- with obj = module, module_name = module.path if show_full_path else module.name -%}
 {%- if not root or config.show_root_heading %}
 
 {% filter heading(heading_level) -%}
-{%- with module_name = module.path if show_full_path else module.name -%}
 {%- if config.separate_signature -%}
 {{ module_name }}
 {%- else -%}
 `{{ module_name }}`
 {%- endif -%}
-{%- endwith -%}
 {%- endfilter -%}
 
 {%- else -%}
@@ -25,11 +24,12 @@
 {%- endif -%}
 
 {%- with docstring_sections = module.docstring.parsed -%}
-{%- include "docstring.md" with context -%}
+{%- include "docstring.md.jinja" with context -%}
 {%- endwith -%}
 
-{%- with obj = module -%}
+{% include "summary.md.jinja" with context %}
+
 {%- set root = False -%}
 {%- set heading_level = heading_level + 1 -%}
-{%- include "children.md" with context -%}
+{%- include "children.md.jinja" with context -%}
 {%- endwith -%}

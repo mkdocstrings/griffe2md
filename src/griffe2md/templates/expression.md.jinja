@@ -1,0 +1,53 @@
+{%- macro crossref(name, annotation_path) -%}
+  {%- with full = name.canonical_path -%}
+    {%- if annotation_path == "brief" -%}
+      {%- set annotation = name.canonical_name -%}
+    {%- elif annotation_path == "source" -%}
+      {%- set annotation = name.name -%}
+    {%- elif annotation_path == "full" -%}
+      {%- set annotation = full -%}
+    {%- endif -%}
+    {%- for title, path in annotation|split_path(full) -%}
+      {%- if not signature -%}
+        {%- filter stash_crossref(length=title|length) -%}
+          {%- if config.textual_links -%}
+            [@click=go('{{ path }}')]{{ title }}[/]
+          {%- else -%}
+            <a href="{{ path }}">{{ title }}</a>
+          {%- endif -%}
+        {%- endfilter -%}
+      {%- else -%}
+        {{ title }}
+      {%- endif -%}{%- if not loop.last -%}.{%- endif -%}
+    {%- endfor -%}
+  {%- endwith -%}
+{%- endmacro -%}
+
+{%- macro render(expression, annotations_path) -%}
+  {%- if expression is string -%}
+    {%- if signature -%}{{ expression|safe }}{%- else -%}{{ expression }}{%- endif -%}
+  {%- elif expression.classname == "ExprName" -%}
+    {{ crossref(expression, annotations_path) }}
+  {%- elif expression.classname == "ExprAttribute" -%}
+    {%- if annotations_path == "brief" -%}
+      {{ render(expression.last, "brief") }}
+    {%- elif annotations_path == "full" -%}
+      {{ render(expression.first, "full") }}
+      {%- for element in expression -%}
+        {%- if not loop.first -%}
+          {{ render(element, "brief") }}
+        {%- endif -%}
+      {%- endfor -%}
+    {%- else -%}
+      {%- for element in expression -%}
+        {{ render(element, annotations_path) }}
+      {%- endfor -%}
+    {%- endif -%}
+  {%- else -%}
+    {%- for element in expression -%}
+      {{ render(element, annotations_path) }}
+    {%- endfor -%}
+  {%- endif -%}
+{%- endmacro -%}
+
+{{ render(expression, config.annotations_path) }}

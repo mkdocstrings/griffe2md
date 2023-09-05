@@ -1,0 +1,17 @@
+{%- if config.docstring_section_style == "table" %}
+
+**{{ section.title or "Parameters:" }}**
+
+Name | Type | Description | Default
+---- | ---- | ----------- | -------
+{%- for parameter in section.value %}
+`{{ parameter.name }}` | {% if parameter.annotation -%}{%- with expression = parameter.annotation -%}<code>{%- include "expression.md.jinja" with context -%}</code>{%- endwith -%}{%- endif %} | {{ parameter.description }} | {% if parameter.default -%}{%- with expression = parameter.default -%}<code>{%- include "expression.md.jinja" with context -%}</code>{%- endwith -%}{%- else -%}*required*{%- endif %}
+{%- endfor -%}
+
+{%- elif config.docstring_section_style == "list" %}
+
+**{{ section.title or "Parameters:" }}**
+{% for parameter in section.value %}
+- **{{ parameter.name }}**{%- if parameter.annotation -%}{%- with expression = parameter.annotation %} (<code>{%- include "expression.md.jinja" with context -%}</code>){%- endwith -%}{%- endif %} – {{ parameter.description }}
+{%- endfor -%}
+{%- endif -%}

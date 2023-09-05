@@ -1,0 +1,18 @@
+{%- if config.docstring_section_style == "table" %}
+
+{%- set name_column = section.value|selectattr("name")|any -%}
+**{{ section.title or "Yields:" }}**
+
+{% if name_column -%}Name | {% endif -%}Type | Description
+{% if name_column -%}---- | {% endif -%}---- | -----------
+{%- for yields in section.value %}
+{%- if name_column -%}{%- if yields.name -%}`{{ yields.name }}`{%- endif %} | {% endif -%}{%- if yields.annotation -%}{%- with expression = yields.annotation -%}<code>{%- include "expression.md.jinja" with context -%}</code>{%- endwith -%}{%- endif %} | {{ yields.description }}
+{%- endfor -%}
+
+{%- elif config.docstring_section_style == "list" %}
+
+**{{ section.title or "Yields:" }}**
+{% for yields in section.value %}
+- {% if yields.name -%}**{{ yields.name }}**{%- endif -%}{%- if yields.annotation -%}{%- with expression = yields.annotation -%}{%- if yields.name %} ({%- endif -%}<code>{%- include "expression.md.jinja" with context -%}</code>{%- if yields.name -%}){% endif -%}{%- endwith -%}{%- endif %} – {{ yields.description }}
+{%- endfor -%}
+{%- endif -%}
