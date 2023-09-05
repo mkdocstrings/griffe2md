@@ -2,6 +2,11 @@
 
 ## griffe2md Insiders
 
+### 1.2.1 <small>September 06, 2023</small> { id="1.2.1" }
+
+- Bump required Griffe version to 0.36
+- Use `html_links` option, stop using Textual click links
+
 ### 1.2.0 <small>September 05, 2023</small> { id="1.2.0" }
 
 - Support latest Griffe, add auto-summaries and cross-references
