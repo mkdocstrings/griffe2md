@@ -10,10 +10,10 @@
     {%- for title, path in annotation|split_path(full) -%}
       {%- if not signature -%}
         {%- filter stash_crossref(length=title|length) -%}
-          {%- if config.textual_links -%}
-            [@click=go('{{ path }}')]{{ title }}[/]
-          {%- else -%}
+          {%- if config.html_links -%}
             <a href="{{ path }}">{{ title }}</a>
+          {%- else -%}
+            [{{ title }}](#{{ path }})
           {%- endif -%}
         {%- endfilter -%}
       {%- else -%}
