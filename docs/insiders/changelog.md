@@ -2,6 +2,10 @@
 
 ## griffe2md Insiders
 
+### 1.2.2 <small>September 06, 2023</small> { id="1.2.2" }
+
+- Don't import stuff from mkdocstrings
+
 ### 1.2.1 <small>September 06, 2023</small> { id="1.2.1" }
 
 - Bump required Griffe version to 0.36

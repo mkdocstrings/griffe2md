@@ -23,14 +23,10 @@ from griffe.docstrings.dataclasses import (
 )
 from jinja2 import pass_context
 from markupsafe import Markup
-from mkdocstrings.loggers import get_logger
 
 if TYPE_CHECKING:
     from griffe.dataclasses import Alias, Attribute, Class, Function, Module, Object
     from jinja2.runtime import Context
-    from mkdocstrings.handlers.base import CollectorItem
-
-logger = get_logger(__name__)
 
 
 class Order(enum.Enum):
@@ -100,14 +96,14 @@ def do_any(seq: Sequence, attribute: str | None = None) -> bool:
     return any(_[attribute] for _ in seq)
 
 
-def _sort_key_alphabetical(item: CollectorItem) -> Any:
+def _sort_key_alphabetical(item: Object) -> Any:
     # chr(sys.maxunicode) is a string that contains the final unicode
     # character, so if 'name' isn't found on the object, the item will go to
     # the end of the list.
     return item.name or chr(sys.maxunicode)
 
 
-def _sort_key_source(item: CollectorItem) -> Any:
+def _sort_key_source(item: Object) -> Any:
     # if 'lineno' is none, the item will go to the start of the list.
     return item.lineno if item.lineno is not None else -1
 
