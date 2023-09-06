@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import enum
+import logging
 import random
 import re
 import string
@@ -27,6 +28,9 @@ from markupsafe import Markup
 if TYPE_CHECKING:
     from griffe.dataclasses import Alias, Attribute, Class, Function, Module, Object
     from jinja2.runtime import Context
+
+
+logger = logging.getLogger(__name__)
 
 
 class Order(enum.Enum):
@@ -96,14 +100,14 @@ def do_any(seq: Sequence, attribute: str | None = None) -> bool:
     return any(_[attribute] for _ in seq)
 
 
-def _sort_key_alphabetical(item: Object) -> Any:
+def _sort_key_alphabetical(item: Object | Alias) -> Any:
     # chr(sys.maxunicode) is a string that contains the final unicode
     # character, so if 'name' isn't found on the object, the item will go to
     # the end of the list.
     return item.name or chr(sys.maxunicode)
 
 
-def _sort_key_source(item: Object) -> Any:
+def _sort_key_source(item: Object | Alias) -> Any:
     # if 'lineno' is none, the item will go to the start of the list.
     return item.lineno if item.lineno is not None else -1
 

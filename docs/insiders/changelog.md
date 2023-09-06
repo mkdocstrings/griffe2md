@@ -2,6 +2,10 @@
 
 ## griffe2md Insiders
 
+### 1.2.3 <small>September 06, 2023</small> { id="1.2.3" }
+
+- Add back logger to rendering module
+
 ### 1.2.2 <small>September 06, 2023</small> { id="1.2.2" }
 
 - Don't import stuff from mkdocstrings
