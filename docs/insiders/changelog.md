@@ -2,6 +2,11 @@
 
 ## griffe2md Insiders
 
+### 1.3.0 <small>September 08, 2023</small> { id="1.3.0" }
+
+- Never use full path in separate signatures
+- Resolve external aliases pointing to objects in corresponding private packages (`ast.AST` -> `_ast.AST`)
+
 ### 1.2.3 <small>September 06, 2023</small> { id="1.2.3" }
 
 - Add back logger to rendering module
