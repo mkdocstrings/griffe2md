@@ -29,7 +29,7 @@ filter_objects(
 {%- endif -%}
 {%- with heading_level = heading_level + extra_level -%}
 {%- for attribute in attributes|order_members(config.members_order, members_list) -%}
-{%- if members_list is not none or attribute.is_public(check_name=False) -%}
+{%- if members_list is not none or attribute.is_public(check_name=False) or attribute|from_private_package -%}
 {%- include "attribute.md.jinja" with context -%}
 {%- endif -%}
 {%- endfor -%}
@@ -51,7 +51,7 @@ filter_objects(
 {%- endif -%}
 {%- with heading_level = heading_level + extra_level -%}
 {%- for class in classes|order_members(config.members_order, members_list) -%}
-{%- if members_list is not none or class.is_public(check_name=False) -%}
+{%- if members_list is not none or class.is_public(check_name=False) or class|from_private_package -%}
 {%- include "class.md.jinja" with context -%}
 {%- endif -%}
 {%- endfor -%}
@@ -74,7 +74,7 @@ filter_objects(
 {%- with heading_level = heading_level + extra_level -%}
 {%- for function in functions|order_members(config.members_order, members_list) -%}
 {%- if not (obj.kind.value == "class" and function.name == "__init__" and config.merge_init_into_class) -%}
-{%- if members_list is not none or function.is_public(check_name=False) -%}
+{%- if members_list is not none or function.is_public(check_name=False) or function|from_private_package -%}
 {%- include "function.md.jinja" with context -%}
 {%- endif -%}
 {%- endif -%}
@@ -98,7 +98,7 @@ filter_objects(
 {%- endif -%}
 {%- with heading_level = heading_level + extra_level -%}
 {%- for module in modules|order_members(config.members_order, members_list) -%}
-{%- if members_list is not none or module.is_public(check_name=False) -%}
+{%- if members_list is not none or module.is_public(check_name=False) or module|from_private_package -%}
 {%- include "module.md.jinja" with context -%}
 {%- endif -%}
 {%- endfor -%}
@@ -121,7 +121,7 @@ filter_objects(
 order_members(config.members_order, members_list) -%}
 
 {%- if not (obj.kind.value == "class" and child.name == "__init__" and config.merge_init_into_class) -%}
-{%- if members_list is not none or child.is_public(check_name=False) -%}
+{%- if members_list is not none or child.is_public(check_name=False) or child|from_private_package -%}
 
 {%- if child.kind.value == "attribute" -%}
 {%- with attribute = child -%}

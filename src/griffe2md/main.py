@@ -109,6 +109,7 @@ def prepare_env(env: Environment | None = None) -> Environment:
     env.filters["order_members"] = rendering.do_order_members
     env.filters["split_path"] = rendering.do_split_path
     env.filters["stash_crossref"] = lambda ref, length: ref
+    env.filters["from_private_package"] = rendering.from_private_package
 
     return env
 
@@ -143,7 +144,7 @@ def render_package_docs(package: str, config: dict | None = None) -> str:
     parser = config["docstring_style"] and Parser(config["docstring_style"])
     loader = GriffeLoader(docstring_parser=parser)
     module = loader.load_module(package)
-    loader.resolve_aliases()
+    loader.resolve_aliases(external=True)
     return render_object_docs(module, config)
 
 

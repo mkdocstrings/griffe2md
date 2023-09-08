@@ -22,6 +22,7 @@ from griffe.docstrings.dataclasses import (
     DocstringSectionFunctions,
     DocstringSectionModules,
 )
+from griffe.exceptions import AliasResolutionError, CyclicAliasError
 from jinja2 import pass_context
 from markupsafe import Markup
 
@@ -50,7 +51,7 @@ default_config: dict = {
     "show_root_members_full_path": True,
     "show_object_full_path": True,
     "show_category_heading": False,
-    "show_if_no_docstring": False,
+    "show_if_no_docstring": True,
     "show_signature": True,
     "show_signature_annotations": False,
     "signature_crossrefs": False,
@@ -69,11 +70,12 @@ default_config: dict = {
     "show_docstring_yields": True,
     "show_bases": True,
     "show_submodules": True,
-    "group_by_category": True,
+    "group_by_category": False,
     "heading_level": 2,
     "members_order": Order.alphabetical.value,
     "docstring_section_style": "list",
     "members": None,
+    "inherited_members": True,
     "filters": ["!^_"],
     "annotations_path": "brief",
     "preload_modules": None,
@@ -485,6 +487,25 @@ def _get_black_formatter() -> Callable[[str, int], str]:
     return formatter
 
 
+def from_private_package(obj: Object | Alias) -> bool:
+    """Tell if an alias points to an object coming from a corresponding private package.
+
+    For example, return true for an alias in package `ast` pointing at an object in package `_ast`.
+
+    Parameters:
+        obj: The object (alias) to check.
+
+    Returns:
+        True or false.
+    """
+    if not obj.is_alias:
+        return False
+    try:
+        return obj.target.package.name == f"_{obj.parent.package.name}"  # type: ignore[union-attr]
+    except (AliasResolutionError, CyclicAliasError):
+        return False
+
+
 def do_as_attributes_section(
     attributes: Sequence[Attribute], *, check_public: bool = True,
 ) -> DocstringSectionAttributes:
@@ -506,7 +527,7 @@ def do_as_attributes_section(
                 value=attribute.value,  # type: ignore[arg-type]
             )
             for attribute in attributes
-            if not check_public or attribute.is_public(check_name=False)
+            if not check_public or attribute.is_public(check_name=False) or from_private_package(attribute)
         ],
     )
 
@@ -528,7 +549,7 @@ def do_as_functions_section(functions: Sequence[Function], *, check_public: bool
                 description=function.docstring.value.split("\n", 1)[0] if function.docstring else "",
             )
             for function in functions
-            if not check_public or function.is_public(check_name=False)
+            if not check_public or function.is_public(check_name=False) or from_private_package(function)
         ],
     )
 
@@ -550,7 +571,7 @@ def do_as_classes_section(classes: Sequence[Class], *, check_public: bool = True
                 description=cls.docstring.value.split("\n", 1)[0] if cls.docstring else "",
             )
             for cls in classes
-            if not check_public or cls.is_public(check_name=False)
+            if not check_public or cls.is_public(check_name=False) or from_private_package(cls)
         ],
     )
 
@@ -572,6 +593,6 @@ def do_as_modules_section(modules: Sequence[Module], *, check_public: bool = Tru
                 description=module.docstring.value.split("\n", 1)[0] if module.docstring else "",
             )
             for module in modules
-            if not check_public or module.is_public(check_name=False)
+            if not check_public or module.is_public(check_name=False) or from_private_package(module)
         ],
     )
