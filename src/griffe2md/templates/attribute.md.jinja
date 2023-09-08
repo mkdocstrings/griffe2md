@@ -8,14 +8,15 @@
 {%- set show_full_path = config.show_object_full_path -%}
 {%- endif -%}
 
+{%- with obj = attribute, attribute_name = attribute.path if show_full_path else attribute.name -%}
 {%- if not root or config.show_root_heading %}
 
 {% filter heading(heading_level) -%}
 {%- if config.separate_signature -%}
-{%- if show_full_path -%}{{ attribute.path }}{%- else -%}{{ attribute.name }}{%- endif -%}
+{{ attribute_name }}
 {%- else -%}
 <code>
-{%- if show_full_path -%}{{ attribute.path }}{%- else -%}{{ attribute.name }}{%- endif -%}
+{{ attribute_name }}
 {%- if attribute.annotation -%}: {{ attribute.annotation }}{%- endif -%}
 {%- if attribute.value -%} = {{ attribute.value }}{%- endif -%}
 </code>
@@ -25,7 +26,7 @@
 {%- if config.separate_signature -%}
 ```python
 {% filter format_code(config.line_length) -%}
-{%- if show_full_path -%}{{ attribute.path }}{%- else -%}{{ attribute.name }}{%- endif -%}
+{{ attribute.name }}
 {%- if attribute.annotation -%}: {{ attribute.annotation|safe }}{%- endif -%}
 {%- if attribute.value -%} = {{ attribute.value|safe }}{%- endif -%}
 {%- endfilter %}
@@ -42,4 +43,5 @@
 
 {%- with docstring_sections = attribute.docstring.parsed -%}
 {%- include "docstring.md.jinja" with context -%}
+{%- endwith -%}
 {%- endwith -%}

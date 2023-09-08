@@ -12,7 +12,6 @@
 {%- if not root or config.show_root_heading %}
 
 {% filter heading(heading_level) -%}
-
 {{ function_name }}
 {%- if not config.separate_signature -%}
 {%- include "signature.md.jinja" with context -%}
@@ -22,7 +21,7 @@
 {%- if config.separate_signature -%}
 ```python
 {% filter format_signature(function, config.line_length, crossrefs=config.signature_crossrefs) -%}
-{{ function_name }}
+{{ function.name }}
 {% endfilter %}
 ```
 

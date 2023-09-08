@@ -29,7 +29,7 @@
 {%- with function = class.members["__init__"] -%}
 ```python
 {% filter format_signature(function, config.line_length, crossrefs=config.signature_crossrefs) -%}
-{{ class_name }}
+{{ class.name }}
 {% endfilter %}
 ```
 
