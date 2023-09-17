@@ -111,7 +111,7 @@ filter_objects(
 
 {%- else -%}
 
-{%- for child in obj.members|
+{%- for child in obj.all_members|
 filter_objects(
     filters=config.filters,
     members_list=members_list,

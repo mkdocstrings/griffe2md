@@ -2,6 +2,10 @@
 
 ## griffe2md Insiders
 
+### 1.3.1 <small>September 17, 2023</small> { id="1.3.1" }
+
+- Use all members as well when not grouping by category
+
 ### 1.3.0 <small>September 08, 2023</small> { id="1.3.0" }
 
 - Never use full path in separate signatures
