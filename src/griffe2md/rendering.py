@@ -510,7 +510,9 @@ def from_private_package(obj: Object | Alias) -> bool:
 
 
 def do_as_attributes_section(
-    attributes: Sequence[Attribute], *, check_public: bool = True,
+    attributes: Sequence[Attribute],
+    *,
+    check_public: bool = True,
 ) -> DocstringSectionAttributes:
     """Build an attributes section from a list of attributes.
 

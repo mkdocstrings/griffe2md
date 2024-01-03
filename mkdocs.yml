@@ -25,12 +25,7 @@ nav:
 - Development:
   - Contributing: contributing.md
   - Code of Conduct: code_of_conduct.md
-  # - Coverage report: coverage.md
-- Insiders:
-  - insiders/index.md
-  - Getting started:
-    - Installation: insiders/installation.md
-    - Changelog: insiders/changelog.md
+  - Coverage report: coverage.md
 - Author's website: https://pawamoy.github.io/
 
 theme:
@@ -77,7 +72,6 @@ theme:
 extra_css:
 - css/material.css
 - css/mkdocstrings.css
-- css/insiders.css
 
 markdown_extensions:
 - attr_list
@@ -85,10 +79,11 @@ markdown_extensions:
 - callouts
 - footnotes
 - pymdownx.emoji:
-    emoji_index: !!python/name:materialx.emoji.twemoji
-    emoji_generator: !!python/name:materialx.emoji.to_svg
+    emoji_index: !!python/name:material.extensions.emoji.twemoji
+    emoji_generator: !!python/name:material.extensions.emoji.to_svg
 - pymdownx.magiclink
 - pymdownx.snippets:
+    base_path: [!relative $config_dir]
     check_paths: true
 - pymdownx.superfences
 - pymdownx.tabbed:
@@ -108,18 +103,21 @@ plugins:
     scripts:
     - scripts/gen_ref_nav.py
 - literate-nav:
-    nav_file: SUMMARY.txt
-# - coverage
+    nav_file: SUMMARY.md
+- coverage
 - mkdocstrings:
     handlers:
       python:
         import:
         - https://docs.python.org/3/objects.inv
+        paths: [src]
         options:
           docstring_options:
             ignore_init_summary: true
           docstring_section_style: list
+          filters: ["!^_"]
           heading_level: 1
+          inherited_members: true
           merge_init_into_class: true
           separate_signature: true
           show_root_heading: true
@@ -129,11 +127,16 @@ plugins:
           show_symbol_type_heading: true
           show_symbol_type_toc: true
           signature_crossrefs: true
+          summary: true
 - git-committers:
     enabled: !ENV [DEPLOY, false]
     repository: mkdocstrings/griffe2md
 - minify:
     minify_html: !ENV [DEPLOY, false]
+- group:
+    enabled: !ENV [MATERIAL_INSIDERS, false]
+    plugins:
+    - typeset
 
 extra:
   social:

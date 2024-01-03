@@ -4,18 +4,20 @@
 [![documentation](https://img.shields.io/badge/docs-mkdocs%20material-blue.svg?style=flat)](https://mkdocstrings.github.io/griffe2md/)
 [![pypi version](https://img.shields.io/pypi/v/griffe2md.svg)](https://pypi.org/project/griffe2md/)
 [![gitpod](https://img.shields.io/badge/gitpod-workspace-blue.svg?style=flat)](https://gitpod.io/#https://github.com/mkdocstrings/griffe2md)
-[![gitter](https://badges.gitter.im/join%20chat.svg)](https://gitter.im/mkdocstrings/griffe2md)
+[![gitter](https://badges.gitter.im/join%20chat.svg)](https://app.gitter.im/#/room/#griffe2md:gitter.im)
 
 Output API docs to Markdown using Griffe.
 
 ## Installation
 
 With `pip`:
+
 ```bash
 pip install griffe2md
 ```
 
 With [`pipx`](https://github.com/pipxproject/pipx):
+
 ```bash
 python3.8 -m pip install --user pipx
 pipx install griffe2md

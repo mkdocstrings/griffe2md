@@ -14,6 +14,20 @@
 from __future__ import annotations
 
 import argparse
+import sys
+from typing import Any
+
+from griffe2md import debug
+
+
+class _DebugInfo(argparse.Action):
+    def __init__(self, nargs: int | str | None = 0, **kwargs: Any) -> None:
+        super().__init__(nargs=nargs, **kwargs)
+
+    def __call__(self, *args: Any, **kwargs: Any) -> None:  # noqa: ARG002
+        debug.print_debug_info()
+        sys.exit(0)
+
 
 from griffe2md.main import write_package_docs
 
@@ -27,6 +41,8 @@ def get_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="griffe2md")
     parser.add_argument("package", help="The package to output Markdown docs for.")
     parser.add_argument("-o", "--output", default=None, help="File to write to. Default: stdout.")
+    parser.add_argument("-V", "--version", action="version", version=f"%(prog)s {debug.get_version()}")
+    parser.add_argument("--debug-info", action=_DebugInfo, help="Print debug information.")
     return parser
 
 
