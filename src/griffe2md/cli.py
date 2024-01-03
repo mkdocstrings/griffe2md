@@ -18,6 +18,7 @@ import sys
 from typing import Any
 
 from griffe2md import debug
+from griffe2md.main import write_package_docs
 
 
 class _DebugInfo(argparse.Action):
@@ -27,9 +28,6 @@ class _DebugInfo(argparse.Action):
     def __call__(self, *args: Any, **kwargs: Any) -> None:  # noqa: ARG002
         debug.print_debug_info()
         sys.exit(0)
-
-
-from griffe2md.main import write_package_docs
 
 
 def get_parser() -> argparse.ArgumentParser:
