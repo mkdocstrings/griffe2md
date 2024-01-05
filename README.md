@@ -32,7 +32,7 @@ griffe2md markdown
 griffe2md path/to/my/src/package
 ```
 
-Use the `o`, `--output` option to write to a file instead of standard output:
+Use the `-o`, `--output` option to write to a file instead of standard output:
 
 ```bash
 griffe2md markdown -o markdown.md
