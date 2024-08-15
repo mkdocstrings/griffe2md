@@ -6,6 +6,18 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.0.1](https://github.com/mkdocstrings/griffe2md/releases/tag/1.0.1) - 2024-08-15
+
+<small>[Compare with 1.0.0](https://github.com/mkdocstrings/griffe2md/compare/1.0.0...1.0.1)</small>
+
+### Build
+
+- Depend on Griffe 0.49 ([e7fef87](https://github.com/mkdocstrings/griffe2md/commit/e7fef8732f2ffb52706967b9fa828261aedf9380) by Timothée Mazzucotelli).
+
+### Code Refactoring
+
+- Update code for Griffe 0.49 ([b321b39](https://github.com/mkdocstrings/griffe2md/commit/b321b3980e5ee2524c8f2db95c19ba897ad658b9) by Timothée Mazzucotelli).
+
 ## [1.0.0](https://github.com/mkdocstrings/griffe2md/releases/tag/1.0.0) - 2024-01-03
 
 <small>[Compare with first commit](https://github.com/mkdocstrings/griffe2md/compare/d92385072e50ec53f4def83371884bf4558cb9a5...1.0.0)</small>
