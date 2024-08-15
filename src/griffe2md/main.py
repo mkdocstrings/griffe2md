@@ -8,8 +8,7 @@ from pathlib import Path
 from typing import IO, TYPE_CHECKING
 
 import mdformat
-from griffe.docstrings import Parser
-from griffe.loader import GriffeLoader
+from griffe import GriffeLoader, Parser
 from jinja2 import Environment, FileSystemLoader
 
 from griffe2md import rendering
@@ -145,7 +144,7 @@ def render_package_docs(package: str, config: dict | None = None) -> str:
     loader = GriffeLoader(docstring_parser=parser)
     module = loader.load(package)
     loader.resolve_aliases(external=True)
-    return render_object_docs(module, config)
+    return render_object_docs(module, config)  # type: ignore[arg-type]
 
 
 def write_package_docs(package: str, config: dict | None = None, output: IO | str | None = None) -> None:

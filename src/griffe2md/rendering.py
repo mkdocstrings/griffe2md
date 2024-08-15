@@ -12,7 +12,9 @@ import warnings
 from functools import lru_cache, partial
 from typing import TYPE_CHECKING, Any, Callable, Match, Pattern, Sequence
 
-from griffe.docstrings.dataclasses import (
+from griffe import (
+    AliasResolutionError,
+    CyclicAliasError,
     DocstringAttribute,
     DocstringClass,
     DocstringFunction,
@@ -22,7 +24,6 @@ from griffe.docstrings.dataclasses import (
     DocstringSectionFunctions,
     DocstringSectionModules,
 )
-from griffe.exceptions import AliasResolutionError, CyclicAliasError
 from jinja2 import pass_context
 from markupsafe import Markup
 
@@ -401,7 +402,7 @@ def _keep_object(name: str, filters: Sequence[tuple[Pattern, bool]]) -> bool:
         if regex.search(name):
             keep = not exclude
     if keep is None:
-        if rules == {False}:
+        if rules == {False}:  # noqa: SIM103
             # only included stuff, no match = reject
             return False
         # only excluded stuff, or included and excluded stuff, no match = keep
@@ -504,7 +505,7 @@ def from_private_package(obj: Object | Alias) -> bool:
     if not obj.is_alias:
         return False
     try:
-        return obj.target.package.name == f"_{obj.parent.package.name}"  # type: ignore[union-attr]
+        return obj.target.package.name == f"_{obj.parent.package.name}"
     except (AliasResolutionError, CyclicAliasError):
         return False
 
@@ -529,10 +530,10 @@ def do_as_attributes_section(
                 name=attribute.name,
                 description=attribute.docstring.value.split("\n", 1)[0] if attribute.docstring else "",
                 annotation=attribute.annotation,
-                value=attribute.value,  # type: ignore[arg-type]
+                value=attribute.value,
             )
             for attribute in attributes
-            if not check_public or attribute.is_public(check_name=False) or from_private_package(attribute)
+            if not check_public or attribute.is_public or from_private_package(attribute)
         ],
     )
 
@@ -554,7 +555,7 @@ def do_as_functions_section(functions: Sequence[Function], *, check_public: bool
                 description=function.docstring.value.split("\n", 1)[0] if function.docstring else "",
             )
             for function in functions
-            if not check_public or function.is_public(check_name=False) or from_private_package(function)
+            if not check_public or function.is_public or from_private_package(function)
         ],
     )
 
@@ -576,7 +577,7 @@ def do_as_classes_section(classes: Sequence[Class], *, check_public: bool = True
                 description=cls.docstring.value.split("\n", 1)[0] if cls.docstring else "",
             )
             for cls in classes
-            if not check_public or cls.is_public(check_name=False) or from_private_package(cls)
+            if not check_public or cls.is_public or from_private_package(cls)
         ],
     )
 
@@ -598,6 +599,6 @@ def do_as_modules_section(modules: Sequence[Module], *, check_public: bool = Tru
                 description=module.docstring.value.split("\n", 1)[0] if module.docstring else "",
             )
             for module in modules
-            if not check_public or module.is_public(check_name=False) or from_private_package(module)
+            if not check_public or module.is_public or from_private_package(module)
         ],
     )
