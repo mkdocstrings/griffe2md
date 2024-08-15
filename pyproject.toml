@@ -29,7 +29,7 @@ classifiers = [
     "Typing :: Typed",
 ]
 dependencies = [
-    "griffe>=0.36.0",
+    "griffe>=0.49",
     "jinja2>=3.1.2",
     "mdformat>=0.7.16",
 ]
