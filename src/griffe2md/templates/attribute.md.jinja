@@ -18,7 +18,7 @@
 <code>
 {{ attribute_name }}
 {%- if attribute.annotation -%}: {{ attribute.annotation }}{%- endif -%}
-{%- if attribute.value -%} = {{ attribute.value }}{%- endif -%}
+{%- if attribute.value %} = {{ attribute.value }}{%- endif -%}
 </code>
 {%- endif -%}
 {%- endfilter -%}
@@ -28,7 +28,7 @@
 {% filter format_code(config.line_length) -%}
 {{ attribute.name }}
 {%- if attribute.annotation -%}: {{ attribute.annotation|safe }}{%- endif -%}
-{%- if attribute.value -%} = {{ attribute.value|safe }}{%- endif -%}
+{%- if attribute.value %} = {{ attribute.value|safe }}{%- endif -%}
 {%- endfilter %}
 ```
 {%- endif %}
