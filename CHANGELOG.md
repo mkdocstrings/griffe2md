@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.0.2](https://github.com/mkdocstrings/griffe2md/releases/tag/1.0.2) - 2024-09-27
+
+<small>[Compare with 1.0.1](https://github.com/mkdocstrings/griffe2md/compare/1.0.1...1.0.2)</small>
+
+### Bug Fixes
+
+- Fix spacing around `=` and `->` ([e62d67c](https://github.com/mkdocstrings/griffe2md/commit/e62d67c8e1e6a150862390ac2878bfcade6abb59) by Timothée Mazzucotelli). [Issue-1](https://github.com/mkdocstrings/griffe2md/issues/1)
+
 ## [1.0.1](https://github.com/mkdocstrings/griffe2md/releases/tag/1.0.1) - 2024-08-15
 
 <small>[Compare with 1.0.0](https://github.com/mkdocstrings/griffe2md/compare/1.0.0...1.0.1)</small>
