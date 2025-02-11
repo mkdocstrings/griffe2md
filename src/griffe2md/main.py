@@ -37,7 +37,7 @@ def prepare_context(obj: Object, config: dict | None = None) -> dict:
     Returns:
         The Jinja context.
     """
-    config = config or dict(rendering.default_config)
+    config = dict(rendering.default_config, **(config or {}))
     if config["filters"]:
         config["filters"] = [(re.compile(filtr.lstrip("!")), filtr.startswith("!")) for filtr in config["filters"]]
 
