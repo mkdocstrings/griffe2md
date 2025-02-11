@@ -6,6 +6,18 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.1.0](https://github.com/mkdocstrings/griffe2md/releases/tag/1.1.0) - 2025-02-11
+
+<small>[Compare with 1.0.2](https://github.com/mkdocstrings/griffe2md/compare/1.0.2...1.1.0)</small>
+
+### Build
+
+- Drop support for Python 3.8 ([823936b](https://github.com/mkdocstrings/griffe2md/commit/823936beb2bdf8eaf9e6724a16079c71aaf11d42) by Timothée Mazzucotelli).
+
+### Features
+
+- Allow passing partial configuration to relevant functions ([4f7682e](https://github.com/mkdocstrings/griffe2md/commit/4f7682ec0952b93b2d08b6513075e2bee13f37c6) by Timothée Mazzucotelli).
+
 ## [1.0.2](https://github.com/mkdocstrings/griffe2md/releases/tag/1.0.2) - 2024-09-27
 
 <small>[Compare with 1.0.1](https://github.com/mkdocstrings/griffe2md/compare/1.0.1...1.0.2)</small>
