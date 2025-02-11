@@ -7,11 +7,13 @@ import sys
 from contextlib import contextmanager
 from importlib.metadata import version as pkgversion
 from pathlib import Path
-from typing import TYPE_CHECKING, Iterator
+from typing import TYPE_CHECKING
 
 from duty import duty, tools
 
 if TYPE_CHECKING:
+    from collections.abc import Iterator
+
     from duty.context import Context
 
 
@@ -82,6 +84,7 @@ def check_docs(ctx: Context) -> None:
 @duty
 def check_types(ctx: Context) -> None:
     """Check that the code is correctly typed."""
+    os.environ["FORCE_COLOR"] = "1"
     ctx.run(
         tools.mypy(*PY_SRC_LIST, config_file="config/mypy.ini"),
         title=pyprefix("Type-checking"),

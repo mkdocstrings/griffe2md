@@ -8,9 +8,9 @@ import random
 import re
 import string
 import sys
-import warnings
 from functools import lru_cache, partial
-from typing import TYPE_CHECKING, Any, Callable, Match, Pattern, Sequence
+from re import Pattern
+from typing import TYPE_CHECKING, Any, Callable
 
 from griffe import (
     AliasResolutionError,
@@ -25,11 +25,13 @@ from griffe import (
     DocstringSectionModules,
 )
 from jinja2 import pass_context
-from markupsafe import Markup
 
 if TYPE_CHECKING:
+    from collections.abc import Sequence
+
     from griffe.dataclasses import Alias, Attribute, Class, Function, Module, Object
     from jinja2.runtime import Context
+    from markupsafe import Markup
 
 
 logger = logging.getLogger(__name__)
