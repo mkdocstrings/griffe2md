@@ -304,69 +304,6 @@ def do_order_members(
     return sorted(members, key=order_map[order])
 
 
-@lru_cache
-def _warn_crossref() -> None:
-    warnings.warn(
-        "The `crossref` filter is deprecated and will be removed in a future version",
-        DeprecationWarning,
-        stacklevel=1,
-    )
-
-
-def do_crossref(path: str, *, brief: bool = True) -> Markup:
-    """Deprecated. Filter to create cross-references.
-
-    Parameters:
-        path: The path to link to.
-        brief: Show only the last part of the path, add full path as hover.
-
-    Returns:
-        Markup text.
-    """
-    _warn_crossref()
-    full_path = path
-    if brief:
-        path = full_path.split(".")[-1]
-    return Markup("<span data-autorefs-optional-hover={full_path}>{path}</span>").format(full_path=full_path, path=path)
-
-
-@lru_cache
-def _warn_multi_crossref() -> None:
-    warnings.warn(
-        "The `multi_crossref` filter is deprecated and will be removed in a future version",
-        DeprecationWarning,
-        stacklevel=1,
-    )
-
-
-def do_multi_crossref(text: str, *, code: bool = True) -> Markup:
-    """Deprecated. Filter to create cross-references.
-
-    Parameters:
-        text: The text to scan.
-        code: Whether to wrap the result in a code tag.
-
-    Returns:
-        Markup text.
-    """
-    _warn_multi_crossref()
-    group_number = 0
-    variables = {}
-
-    def repl(match: Match) -> str:
-        nonlocal group_number
-        group_number += 1
-        path = match.group()
-        path_var = f"path{group_number}"
-        variables[path_var] = path
-        return f"<span data-autorefs-optional-hover={{{path_var}}}>{{{path_var}}}</span>"
-
-    text = re.sub(r"([\w.]+)", repl, text)
-    if code:
-        text = f"<code>{text}</code>"
-    return Markup(text).format(**variables)
-
-
 def do_heading(content: str, heading_level: int) -> str:
     """Render a Markdown heading."""
     return f"\n{'#' * heading_level} {content}\n\n"
