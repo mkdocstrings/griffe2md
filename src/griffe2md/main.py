@@ -139,7 +139,7 @@ def render_package_docs(package: str, config: dict | None = None) -> str:
     Returns:
         Markdown.
     """
-    config = config or dict(rendering.default_config)
+    config = {**rendering.default_config, **(config or {})}
     parser = config["docstring_style"] and Parser(config["docstring_style"])
     loader = GriffeLoader(docstring_parser=parser)
     module = loader.load(package)
