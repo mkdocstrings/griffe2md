@@ -284,7 +284,7 @@ def do_format_attribute(
 def do_order_members(
     members: Sequence[Object | Alias],
     order: Order,
-    members_list: bool | list[str] | None,
+    members_list: bool | list[str] | None,  # noqa: FBT001
 ) -> Sequence[Object | Alias]:
     """Order members given an ordering method.
 
@@ -415,7 +415,7 @@ def do_filter_objects(
 @lru_cache(maxsize=1)
 def _get_black_formatter() -> Callable[[str, int], str]:
     try:
-        from black import InvalidInput, Mode, format_str
+        from black import InvalidInput, Mode, format_str  # noqa: PLC0415
     except ModuleNotFoundError:
         logger.info("Formatting signatures requires Black to be installed.")
         return lambda text, _: text

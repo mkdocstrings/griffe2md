@@ -1,14 +1,21 @@
 """Load configuration."""
 
+from __future__ import annotations
+
 import logging
+import sys
 from pathlib import Path
 from typing import Any
 
-import tomllib
+# YORE: EOL 3.10: Replace block with line 2.
+if sys.version_info >= (3, 11):
+    import tomllib
+else:
+    import tomli as tomllib
 
 logger = logging.getLogger(__name__)
 
-PATHS = (
+CONFIG_FILE_PATHS = (
     Path(".config/griffe2md.toml"),
     Path("config/griffe2md.toml"),
     Path("pyproject.toml"),
@@ -16,7 +23,7 @@ PATHS = (
 
 
 def _locate_config_file() -> Path | None:
-    for path in PATHS:
+    for path in CONFIG_FILE_PATHS:
         if path.is_file():
             return path
     return None
