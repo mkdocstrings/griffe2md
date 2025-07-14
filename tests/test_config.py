@@ -1,4 +1,5 @@
 """Test config loading."""
+
 from pathlib import Path
 from unittest.mock import Mock, patch
 
@@ -16,7 +17,7 @@ from griffe2md.config import PYPROJECT
         "pyproject.toml",
     ],
 )
-def test_load_config(tmpdir, rel_path: str)->None: # noqa: ANN001
+def test_load_config(tmpdir, rel_path: str) -> None:  # noqa: ANN001
     """Test that config is loaded."""
     expected_config = {"dummy": True}
     config_text = "dummy=true"
