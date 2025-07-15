@@ -23,6 +23,6 @@ def test_load_config(tmpdir: Path, rel_path: Path) -> None:
         config_path.parent.mkdir(parents=True, exist_ok=True)
         config_path.write_text(text, "utf-8")
 
-        griffe2md.cli.main(["griffe2md", "-o/dev/null"])
+        griffe2md.cli.main(["griffe2md"])
 
-    mock_write.assert_called_once_with("griffe2md", expected_config, "/dev/null")
+    mock_write.assert_called_once_with("griffe2md", expected_config, None)
