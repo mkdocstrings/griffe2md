@@ -1,45 +1,48 @@
 """Load configuration."""
 
-import logging
-import pathlib
-from typing import Optional
+from __future__ import annotations
 
-import tomllib
+import logging
+import sys
+from pathlib import Path
+from typing import Any
+
+# YORE: EOL 3.10: Replace block with line 2.
+if sys.version_info >= (3, 11):
+    import tomllib
+else:
+    import tomli as tomllib
 
 logger = logging.getLogger(__name__)
 
-PATHS = (
-    ".config/griffe2md.toml",
-    "config/griffe2md.toml",
+CONFIG_FILE_PATHS = (
+    Path(".config/griffe2md.toml"),
+    Path("config/griffe2md.toml"),
+    Path("pyproject.toml"),
 )
 
-PYPROJECT = "pyproject.toml"
 
-
-def _locate_config_file() -> Optional[pathlib.Path]:
-    for path in PATHS:
-        path_ = pathlib.Path(path)
-        if path_.is_file():
-            return path_
-
-    pyproj_path = pathlib.Path(PYPROJECT)
-    if pyproj_path.is_file():
-        return pyproj_path
-
+def _locate_config_file() -> Path | None:
+    for path in CONFIG_FILE_PATHS:
+        if path.is_file():
+            return path
     return None
 
 
-def load_config() -> Optional[dict]:
-    """Load the configuration if config file or config entry in pyproject.toml exists. If neither config file was found or pyproject.toml file doesn't have [tool.griffe2md] section, returns None."""
-    config_path = _locate_config_file()
-    if config_path is None:
+def load_config() -> dict[str, Any] | None:
+    """Load the configuration if config file or config entry in pyproject.toml exists.
+
+    If neither config file was found or pyproject.toml file doesn't have
+    a `[tool.griffe2md]` section, None is returned.
+    """
+    if not (config_path := _locate_config_file()):
         return None
 
     logger.debug("Loading config from %s", config_path)
 
-    with open(config_path, "rb") as f:
+    with config_path.open("rb") as f:
         config = tomllib.load(f)
 
-    if str(config_path) == PYPROJECT:
-        return (config.get("tool") or {}).get("griffe2md")
+    if config_path.name == "pyproject.toml":
+        return config.get("tool", {}).get("griffe2md", None)
     return config
