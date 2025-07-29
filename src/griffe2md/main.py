@@ -5,7 +5,7 @@ from __future__ import annotations
 import re
 import sys
 from pathlib import Path
-from typing import IO, TYPE_CHECKING
+from typing import IO, TYPE_CHECKING, cast
 
 import mdformat
 from griffe import GriffeLoader, Parser
@@ -27,7 +27,7 @@ def _output(text: str, to: IO | str | None = None) -> None:
         to.write(text)
 
 
-def prepare_context(obj: Object, config: dict | None = None) -> dict:
+def prepare_context(obj: Object, config: rendering.ConfigDict | None = None) -> dict:
     """Prepare Jinja context.
 
     Parameters:
@@ -37,7 +37,7 @@ def prepare_context(obj: Object, config: dict | None = None) -> dict:
     Returns:
         The Jinja context.
     """
-    config = dict(rendering.default_config, **(config or {}))
+    config = cast(rendering.ConfigDict, {**rendering.default_config, **(config or {})})
     if config["filters"]:
         config["filters"] = [(re.compile(filtr.lstrip("!")), filtr.startswith("!")) for filtr in config["filters"]]
 
@@ -113,7 +113,7 @@ def prepare_env(env: Environment | None = None) -> Environment:
     return env
 
 
-def render_object_docs(obj: Object, config: dict | None = None) -> str:
+def render_object_docs(obj: Object, config: rendering.ConfigDict | None = None) -> str:
     """Render docs for a given object.
 
     Parameters:
@@ -129,7 +129,7 @@ def render_object_docs(obj: Object, config: dict | None = None) -> str:
     return mdformat.text(rendered)
 
 
-def render_package_docs(package: str, config: dict | None = None) -> str:
+def render_package_docs(package: str, config: rendering.ConfigDict | None = None) -> str:
     """Render docs for a given package.
 
     Parameters:
@@ -139,15 +139,15 @@ def render_package_docs(package: str, config: dict | None = None) -> str:
     Returns:
         Markdown.
     """
-    config = {**rendering.default_config, **(config or {})}
+    config = cast(rendering.ConfigDict, {**rendering.default_config, **(config or {})})
     parser = config["docstring_style"] and Parser(config["docstring_style"])
-    loader = GriffeLoader(docstring_parser=parser)
+    loader = GriffeLoader(docstring_parser=parser)  # type; ignore[arg-type]
     module = loader.load(package)
     loader.resolve_aliases(external=True)
     return render_object_docs(module, config)  # type: ignore[arg-type]
 
 
-def write_package_docs(package: str, config: dict | None = None, output: IO | str | None = None) -> None:
+def write_package_docs(package: str, config: rendering.ConfigDict | None = None, output: IO | str | None = None) -> None:
     """Write docs for a given package to a file or stdout.
 
     Parameters:

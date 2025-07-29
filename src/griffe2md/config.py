@@ -4,8 +4,11 @@ from __future__ import annotations
 
 import logging
 import sys
+import typing
 from pathlib import Path
-from typing import Any
+
+if typing.TYPE_CHECKING:
+    from griffe2md import rendering
 
 # YORE: EOL 3.10: Replace block with line 2.
 if sys.version_info >= (3, 11):
@@ -29,7 +32,7 @@ def _locate_config_file() -> Path | None:
     return None
 
 
-def load_config() -> dict[str, Any] | None:
+def load_config() -> rendering.ConfigDict | None:
     """Load the configuration if config file or config entry in pyproject.toml exists.
 
     If neither config file was found or pyproject.toml file doesn't have
@@ -45,4 +48,4 @@ def load_config() -> dict[str, Any] | None:
 
     if config_path.name == "pyproject.toml":
         return config.get("tool", {}).get("griffe2md", None)
-    return config
+    return typing.cast("rendering.ConfigDict", config)
