@@ -141,7 +141,7 @@ def render_package_docs(package: str, config: rendering.ConfigDict | None = None
     """
     config = cast("rendering.ConfigDict", {**rendering.default_config, **(config or {})})
     parser = config["docstring_style"] and Parser(config["docstring_style"])
-    loader = GriffeLoader(docstring_parser=parser)  # type; ignore[arg-type]
+    loader = GriffeLoader(docstring_parser=parser)
     module = loader.load(package)
     loader.resolve_aliases(external=True)
     return render_object_docs(module, config)  # type: ignore[arg-type]
