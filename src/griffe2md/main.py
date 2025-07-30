@@ -37,7 +37,7 @@ def prepare_context(obj: Object, config: rendering.ConfigDict | None = None) -> 
     Returns:
         The Jinja context.
     """
-    config = cast(rendering.ConfigDict, {**rendering.default_config, **(config or {})})
+    config = cast("rendering.ConfigDict", {**rendering.default_config, **(config or {})})
     if config["filters"]:
         config["filters"] = [(re.compile(filtr.lstrip("!")), filtr.startswith("!")) for filtr in config["filters"]]
 
@@ -139,7 +139,7 @@ def render_package_docs(package: str, config: rendering.ConfigDict | None = None
     Returns:
         Markdown.
     """
-    config = cast(rendering.ConfigDict, {**rendering.default_config, **(config or {})})
+    config = cast("rendering.ConfigDict", {**rendering.default_config, **(config or {})})
     parser = config["docstring_style"] and Parser(config["docstring_style"])
     loader = GriffeLoader(docstring_parser=parser)  # type; ignore[arg-type]
     module = loader.load(package)
@@ -147,7 +147,11 @@ def render_package_docs(package: str, config: rendering.ConfigDict | None = None
     return render_object_docs(module, config)  # type: ignore[arg-type]
 
 
-def write_package_docs(package: str, config: rendering.ConfigDict | None = None, output: IO | str | None = None) -> None:
+def write_package_docs(
+    package: str,
+    config: rendering.ConfigDict | None = None,
+    output: IO | str | None = None,
+) -> None:
     """Write docs for a given package to a file or stdout.
 
     Parameters:

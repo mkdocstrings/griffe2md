@@ -30,7 +30,7 @@ from jinja2 import pass_context
 if TYPE_CHECKING:
     from collections.abc import Sequence
 
-    from griffe.dataclasses import Alias, Attribute, Class, Function, Module, Object
+    from griffe import Alias, Attribute, Class, Function, Module, Object
     from jinja2.runtime import Context
     from markupsafe import Markup
 
@@ -56,7 +56,7 @@ class ConfigDict(typing.TypedDict):
     """mkdocstring [configuration](https://mkdocstrings.github.io/python/usage/configuration/general/)"""
 
     docstring_section_style: str
-    docstring_style: typing.Literal['google', 'numpy', 'sphinx', 'auto']
+    docstring_style: typing.Literal["google", "numpy", "sphinx", "auto"]
     """Style of project docstring."""
 
     filters: Any
@@ -492,7 +492,7 @@ def from_private_package(obj: Object | Alias) -> bool:
     if not obj.is_alias:
         return False
     try:
-        return obj.target.package.name == f"_{obj.parent.package.name}"
+        return obj.target.package.name == f"_{obj.parent.package.name}"  # type: ignore[union-attr]
     except (AliasResolutionError, CyclicAliasError):
         return False
 
@@ -517,7 +517,7 @@ def do_as_attributes_section(
                 name=attribute.name,
                 description=attribute.docstring.value.split("\n", 1)[0] if attribute.docstring else "",
                 annotation=attribute.annotation,
-                value=attribute.value,
+                value=str(attribute.value) if attribute.value else None,
             )
             for attribute in attributes
             if not check_public or attribute.is_public or from_private_package(attribute)
