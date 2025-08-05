@@ -47,30 +47,65 @@ class Order(enum.Enum):
     """Source code order."""
 
 
+class SummaryConfig(typing.TypedDict):
+    attributes: bool
+    functions: bool
+    classes: bool
+    modules: bool
+
+
 class ConfigDict(typing.TypedDict):
     """Configuration for griffe2md, griffe and mkdocstrings."""
 
-    allow_inspection: bool
-    annotations_path: str
     docstring_options: dict
     """mkdocstring [configuration](https://mkdocstrings.github.io/python/usage/configuration/general/)"""
 
-    docstring_section_style: str
+    # mkdocstrings specific options
+
+    allow_inspection: bool
+    """See [mkdocstring documentation](https://mkdocstrings.github.io/python/usage/configuration/general/#allow_inspection)"""
+
+    preload_modules: Sequence[str] | None
+    """See [mkdocstring documentation](https://mkdocstrings.github.io/python/usage/configuration/general/#preload_modules)"""
+
+    show_bases: bool
+    """See [mkdocstring documentation](https://mkdocstrings.github.io/python/usage/configuration/general/#show_bases)"""
+
+    # griffe2md options
+
+    annotations_path: typing.Literal["brief", "full"]
+    """Style of annotations paths. "brief" creates a single link to the element denoted by the path; "full" creates a link to each segment of the path."""
+
+    docstring_section_style: typing.Literal["table", "list"]
+    """Style of list-like sections, e.g. parameters, exceptions"""
+
     docstring_style: typing.Literal["google", "numpy", "sphinx", "auto"]
     """Style of project docstring."""
 
-    filters: Any
+    filters: Sequence[str] | None
+    """List of regular expressions, optionally prefixed with "!", used to include or exclude members."""
+
     group_by_category: bool
+    """If true, group children by category."""
+
     heading_level: int
-    inherited_members: bool
+    """Starting level of headings."""
+
+    inherited_members: bool | Sequence[str]
+    """Wether or not to include inherited members."""
+
     line_length: int
     load_external_modules: bool
-    members: Any
-    members_order: Any
+    members: bool | Sequence[str] | None
+
+    members_order: typing.Literal["alphabetical", "source"]
+    """Whether to order the members alphabetically or keep the source order."""
+
     merge_init_into_class: bool
-    preload_modules: Any
+
     separate_signature: bool
-    show_bases: bool
+    """Whether to place signatures separately or keep in headers."""
+
     show_category_heading: bool
     show_docstring_attributes: bool
     show_docstring_description: bool
@@ -90,8 +125,12 @@ class ConfigDict(typing.TypedDict):
     show_signature: bool
     show_signature_annotations: bool
     show_submodules: bool
+
     signature_crossrefs: bool
-    summary: bool | dict
+    """Whether to cross-reference types in the signature"""
+
+    summary: bool | SummaryConfig
+    """Whether or not to include summaries for attributes, classes, functions and modules. Use boolean to set value for all types."""
 
 
 default_config: ConfigDict = {
