@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.2.1](https://github.com/mkdocstrings/griffe2md/releases/tag/1.2.1) - 2025-08-19
+
+<small>[Compare with 1.2.0](https://github.com/mkdocstrings/griffe2md/compare/1.2.0...1.2.1)</small>
+
+### Build
+
+- Update entrypoint to avoid deprecation warning ([850ec71](https://github.com/mkdocstrings/griffe2md/commit/850ec7139cc03495823e2be218c4f2777c5ac009) by Timothée Mazzucotelli).
+
 ## [1.2.0](https://github.com/mkdocstrings/griffe2md/releases/tag/1.2.0) - 2025-08-19
 
 <small>[Compare with 1.1.0](https://github.com/mkdocstrings/griffe2md/compare/1.1.0...1.2.0)</small>
