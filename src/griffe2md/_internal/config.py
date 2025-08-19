@@ -1,5 +1,3 @@
-"""Load configuration."""
-
 from __future__ import annotations
 
 import logging
@@ -16,13 +14,14 @@ else:
 if TYPE_CHECKING:
     from re import Pattern
 
-logger = logging.getLogger(__name__)
+_logger = logging.getLogger(__name__)
 
 CONFIG_FILE_PATHS = (
     Path(".config/griffe2md.toml"),
     Path("config/griffe2md.toml"),
     Path("pyproject.toml"),
 )
+"""Paths to default configuration files."""
 
 
 def _locate_config_file() -> Path | None:
@@ -41,7 +40,7 @@ def load_config() -> ConfigDict | None:
     if not (config_path := _locate_config_file()):
         return None
 
-    logger.debug("Loading config from %s", config_path)
+    _logger.debug("Loading config from %s", config_path)
 
     with config_path.open("rb") as f:
         config = tomllib.load(f)
@@ -254,3 +253,4 @@ default_config: ConfigDict = {
     "show_docstring_functions": True,
     "show_docstring_modules": True,
 }
+"""Default configuration values."""

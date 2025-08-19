@@ -28,7 +28,7 @@ def test_show_help(capsys: pytest.CaptureFixture) -> None:
 
 def test_render_self() -> None:
     """Render docs for itself."""
-    cli.main(["griffe2md"])
+    main(["griffe2md"])
 
 
 def test_show_version(capsys: pytest.CaptureFixture) -> None:

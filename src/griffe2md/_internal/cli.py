@@ -1,5 +1,3 @@
-"""Module that contains the command line application."""
-
 # Why does this file exist, and why not put this in `__main__`?
 #
 # You might be tempted to import things from `__main__` later,
@@ -17,9 +15,9 @@ import argparse
 import sys
 from typing import Any
 
-from griffe2md import debug
-from griffe2md.config import load_config
-from griffe2md.main import write_package_docs
+from griffe2md._internal import debug
+from griffe2md._internal.config import load_config
+from griffe2md._internal.main import write_package_docs
 
 
 class _DebugInfo(argparse.Action):
@@ -27,7 +25,7 @@ class _DebugInfo(argparse.Action):
         super().__init__(nargs=nargs, **kwargs)
 
     def __call__(self, *args: Any, **kwargs: Any) -> None:  # noqa: ARG002
-        debug.print_debug_info()
+        debug._print_debug_info()
         sys.exit(0)
 
 
@@ -40,7 +38,7 @@ def get_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="griffe2md")
     parser.add_argument("package", help="The package to output Markdown docs for.")
     parser.add_argument("-o", "--output", default=None, help="File to write to. Default: stdout.")
-    parser.add_argument("-V", "--version", action="version", version=f"%(prog)s {debug.get_version()}")
+    parser.add_argument("-V", "--version", action="version", version=f"%(prog)s {debug._get_version()}")
     parser.add_argument("--debug-info", action=_DebugInfo, help="Print debug information.")
     return parser
 
