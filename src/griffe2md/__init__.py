@@ -5,4 +5,6 @@ Output API docs to Markdown using Griffe.
 
 from __future__ import annotations
 
-__all__: list[str] = []
+from griffe2md._internal.cli import get_parser, main
+
+__all__: list[str] = ["get_parser", "main"]
