@@ -49,4 +49,4 @@ If you configure it in `pyproject.toml`, the configuration should go under the `
 docstring_style = "sphinx"
 ```
 
-See [the documentation](https://mkdocstrings.github.io/griffe2md/reference/griffe2md/rendering/#griffe2md.config.ConfigDict) for reference.
+See [the documentation](https://mkdocstrings.github.io/griffe2md/reference/griffe2md/config/#griffe2md.config.ConfigDict) for reference.
