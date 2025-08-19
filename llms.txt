@@ -1,0 +1,12 @@
+# griffe2md
+
+> Output API docs to Markdown using Griffe.
+
+## Usage
+
+- [Overview](https://mkdocstrings.github.io/griffe2md/index.md)
+
+## API
+
+- [API reference](https://mkdocstrings.github.io/griffe2md/reference/api/index.md)
+
