@@ -29,7 +29,7 @@ from jinja2 import pass_context
 if TYPE_CHECKING:
     from collections.abc import Sequence
 
-    from griffe.dataclasses import Alias, Attribute, Class, Function, Module, Object
+    from griffe import Alias, Attribute, Class, Function, Module, Object
     from jinja2.runtime import Context
     from markupsafe import Markup
 
@@ -37,55 +37,13 @@ if TYPE_CHECKING:
 logger = logging.getLogger(__name__)
 
 
-class Order(enum.Enum):
+class Order(str, enum.Enum):
     """Enumeration for the possible members ordering."""
 
     alphabetical = "alphabetical"
     """Alphabetical order."""
     source = "source"
     """Source code order."""
-
-
-default_config: dict = {
-    "docstring_style": "google",
-    "docstring_options": {"ignore_init_summary": True},
-    "show_root_heading": True,
-    "show_root_full_path": True,
-    "show_root_members_full_path": True,
-    "show_object_full_path": True,
-    "show_category_heading": False,
-    "show_if_no_docstring": True,
-    "show_signature": True,
-    "show_signature_annotations": False,
-    "signature_crossrefs": False,
-    "separate_signature": True,
-    "line_length": 80,
-    "merge_init_into_class": True,
-    "show_docstring_attributes": True,
-    "show_docstring_description": True,
-    "show_docstring_examples": True,
-    "show_docstring_other_parameters": True,
-    "show_docstring_parameters": True,
-    "show_docstring_raises": True,
-    "show_docstring_receives": True,
-    "show_docstring_returns": True,
-    "show_docstring_warns": True,
-    "show_docstring_yields": True,
-    "show_bases": True,
-    "show_submodules": True,
-    "group_by_category": False,
-    "heading_level": 2,
-    "members_order": Order.alphabetical.value,
-    "docstring_section_style": "list",
-    "members": None,
-    "inherited_members": True,
-    "filters": ["!^_"],
-    "annotations_path": "brief",
-    "preload_modules": None,
-    "load_external_modules": False,
-    "allow_inspection": True,
-    "summary": True,
-}
 
 
 def do_any(seq: Sequence, attribute: str | None = None) -> bool:
@@ -118,8 +76,8 @@ def _sort_key_source(item: Object | Alias) -> Any:
 
 
 order_map = {
-    Order.alphabetical: _sort_key_alphabetical,
-    Order.source: _sort_key_source,
+    Order.alphabetical.value: _sort_key_alphabetical,
+    Order.source.value: _sort_key_source,
 }
 
 
@@ -444,7 +402,7 @@ def from_private_package(obj: Object | Alias) -> bool:
     if not obj.is_alias:
         return False
     try:
-        return obj.target.package.name == f"_{obj.parent.package.name}"
+        return obj.target.package.name == f"_{obj.parent.package.name}"  # type: ignore[union-attr]
     except (AliasResolutionError, CyclicAliasError):
         return False
 
@@ -469,7 +427,7 @@ def do_as_attributes_section(
                 name=attribute.name,
                 description=attribute.docstring.value.split("\n", 1)[0] if attribute.docstring else "",
                 annotation=attribute.annotation,
-                value=attribute.value,
+                value=str(attribute.value) if attribute.value else None,
             )
             for attribute in attributes
             if not check_public or attribute.is_public or from_private_package(attribute)

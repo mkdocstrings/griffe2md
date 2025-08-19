@@ -18,6 +18,7 @@ import sys
 from typing import Any
 
 from griffe2md import debug
+from griffe2md.config import load_config
 from griffe2md.main import write_package_docs
 
 
@@ -57,5 +58,7 @@ def main(args: list[str] | None = None) -> int:
     """
     parser = get_parser()
     opts = parser.parse_args(args=args)
-    write_package_docs(opts.package, output=opts.output)
+    config = load_config()
+
+    write_package_docs(opts.package, config, opts.output)
     return 0

@@ -5,13 +5,14 @@ from __future__ import annotations
 import re
 import sys
 from pathlib import Path
-from typing import IO, TYPE_CHECKING
+from typing import IO, TYPE_CHECKING, cast
 
 import mdformat
 from griffe import GriffeLoader, Parser
 from jinja2 import Environment, FileSystemLoader
 
 from griffe2md import rendering
+from griffe2md.config import ConfigDict, default_config
 
 if TYPE_CHECKING:
     from griffe import Object
@@ -27,7 +28,7 @@ def _output(text: str, to: IO | str | None = None) -> None:
         to.write(text)
 
 
-def prepare_context(obj: Object, config: dict | None = None) -> dict:
+def prepare_context(obj: Object, config: ConfigDict | None = None) -> dict:
     """Prepare Jinja context.
 
     Parameters:
@@ -37,13 +38,16 @@ def prepare_context(obj: Object, config: dict | None = None) -> dict:
     Returns:
         The Jinja context.
     """
-    config = dict(rendering.default_config, **(config or {}))
+    config = cast("ConfigDict", {**default_config, **(config or {})})
     if config["filters"]:
-        config["filters"] = [(re.compile(filtr.lstrip("!")), filtr.startswith("!")) for filtr in config["filters"]]
+        config["filters"] = [
+            (re.compile(filtr.lstrip("!")), filtr.startswith("!")) if isinstance(filtr, str) else filtr
+            for filtr in config["filters"]
+        ]
 
     heading_level = config["heading_level"]
     try:
-        config["members_order"] = rendering.Order(config["members_order"])
+        config["members_order"] = rendering.Order(config["members_order"]).value
     except ValueError as error:
         choices = "', '".join(item.value for item in rendering.Order)
         raise ValueError(
@@ -113,7 +117,7 @@ def prepare_env(env: Environment | None = None) -> Environment:
     return env
 
 
-def render_object_docs(obj: Object, config: dict | None = None) -> str:
+def render_object_docs(obj: Object, config: ConfigDict | None = None) -> str:
     """Render docs for a given object.
 
     Parameters:
@@ -129,7 +133,7 @@ def render_object_docs(obj: Object, config: dict | None = None) -> str:
     return mdformat.text(rendered)
 
 
-def render_package_docs(package: str, config: dict | None = None) -> str:
+def render_package_docs(package: str, config: ConfigDict | None = None) -> str:
     """Render docs for a given package.
 
     Parameters:
@@ -139,7 +143,7 @@ def render_package_docs(package: str, config: dict | None = None) -> str:
     Returns:
         Markdown.
     """
-    config = config or dict(rendering.default_config)
+    config = cast("ConfigDict", {**default_config, **(config or {})})
     parser = config["docstring_style"] and Parser(config["docstring_style"])
     loader = GriffeLoader(docstring_parser=parser)
     module = loader.load(package)
@@ -147,7 +151,11 @@ def render_package_docs(package: str, config: dict | None = None) -> str:
     return render_object_docs(module, config)  # type: ignore[arg-type]
 
 
-def write_package_docs(package: str, config: dict | None = None, output: IO | str | None = None) -> None:
+def write_package_docs(
+    package: str,
+    config: ConfigDict | None = None,
+    output: IO | str | None = None,
+) -> None:
     """Write docs for a given package to a file or stdout.
 
     Parameters:
