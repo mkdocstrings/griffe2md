@@ -48,7 +48,7 @@ Gitter = "https://gitter.im/mkdocstrings/griffe2md"
 Funding = "https://github.com/sponsors/pawamoy"
 
 [project.scripts]
-griffe2md = "griffe2md.cli:main"
+griffe2md = "griffe2md:main"
 
 [tool.pdm.version]
 source = "call"
