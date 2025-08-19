@@ -6,6 +6,18 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.2.0](https://github.com/mkdocstrings/griffe2md/releases/tag/1.2.0) - 2025-08-19
+
+<small>[Compare with 1.1.0](https://github.com/mkdocstrings/griffe2md/compare/1.1.0...1.2.0)</small>
+
+### Features
+
+- Read config from config file or pyproject.toml ([c29e483](https://github.com/mkdocstrings/griffe2md/commit/c29e4834746859315b0ecc0633b091f80fc1c479) by Rafal Krupinski). [Issue-8](https://github.com/mkdocstrings/griffe2md/discussions/8), [PR-10](https://github.com/mkdocstrings/griffe2md/pull/10)
+
+### Code Refactoring
+
+- Move modules under internal folder, re-expose API from top-level ([151a6ef](https://github.com/mkdocstrings/griffe2md/commit/151a6efe1567bea4d334f4980af03b9bee3b277c) by Timothée Mazzucotelli).
+
 ## [1.1.0](https://github.com/mkdocstrings/griffe2md/releases/tag/1.1.0) - 2025-02-11
 
 <small>[Compare with 1.0.2](https://github.com/mkdocstrings/griffe2md/compare/1.0.2...1.1.0)</small>
