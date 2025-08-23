@@ -15,11 +15,7 @@
 {%- if config.separate_signature -%}
 {{ attribute_name }}
 {%- else -%}
-<code>
-{{ attribute_name }}
-{%- if attribute.annotation -%}: {{ attribute.annotation }}{%- endif -%}
-{%- if attribute.value %} = {{ attribute.value }}{%- endif -%}
-</code>
+`{{- attribute_name }}{% if attribute.annotation -%}: {{ attribute.annotation }}{%- endif -%}`
 {%- endif -%}
 {%- endfilter -%}
 
