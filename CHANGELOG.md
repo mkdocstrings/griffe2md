@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.2.2](https://github.com/mkdocstrings/griffe2md/releases/tag/1.2.2) - 2025-08-24
+
+<small>[Compare with 1.2.1](https://github.com/mkdocstrings/griffe2md/compare/1.2.1...1.2.2)</small>
+
+### Bug Fixes
+
+- Always wrap headings in backticks ([e9de94f](https://github.com/mkdocstrings/griffe2md/commit/e9de94f4f69626537c2316e32d777ecd963e1486) by Timothée Mazzucotelli). [Issue-11](https://github.com/mkdocstrings/griffe2md/issues/11)
+- Remove extra new lines in attribute headings, and don't render attribute values in headings ([f6d962d](https://github.com/mkdocstrings/griffe2md/commit/f6d962db5882dcc1c5d0d307891cff2e976c182e) by Timothée Mazzucotelli). [Issue-11](https://github.com/mkdocstrings/griffe2md/issues/11)
+
 ## [1.2.1](https://github.com/mkdocstrings/griffe2md/releases/tag/1.2.1) - 2025-08-19
 
 <small>[Compare with 1.2.0](https://github.com/mkdocstrings/griffe2md/compare/1.2.0...1.2.1)</small>
