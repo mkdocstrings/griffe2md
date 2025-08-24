@@ -12,10 +12,11 @@
 {%- if not root or config.show_root_heading %}
 
 {% filter heading(heading_level) -%}
-{{ function_name }}
+`{{ function_name }}
 {%- if not config.separate_signature -%}
 {%- include "signature.md.jinja" with context -%}
 {%- endif -%}
+`
 {%- endfilter -%}
 
 {%- if config.separate_signature -%}

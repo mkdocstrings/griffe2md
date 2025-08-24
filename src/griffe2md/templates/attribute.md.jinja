@@ -13,7 +13,7 @@
 
 {% filter heading(heading_level) -%}
 {%- if config.separate_signature -%}
-{{ attribute_name }}
+`{{ attribute_name }}`
 {%- else -%}
 `{{- attribute_name }}{% if attribute.annotation -%}: {{ attribute.annotation }}{%- endif -%}`
 {%- endif -%}

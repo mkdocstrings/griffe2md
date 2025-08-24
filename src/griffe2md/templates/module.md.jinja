@@ -12,11 +12,7 @@
 {%- if not root or config.show_root_heading %}
 
 {% filter heading(heading_level) -%}
-{%- if config.separate_signature -%}
-{{ module_name }}
-{%- else -%}
 `{{ module_name }}`
-{%- endif -%}
 {%- endfilter -%}
 
 {%- else -%}
