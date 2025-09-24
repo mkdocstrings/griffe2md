@@ -30,7 +30,7 @@ classifiers = [
     "Typing :: Typed",
 ]
 dependencies = [
-    "griffe>=0.49",
+    "griffe>=1.14",
     "jinja2>=3.1.2",
     "mdformat>=0.7.16",
     # YORE: EOL 3.10: Remove line.
