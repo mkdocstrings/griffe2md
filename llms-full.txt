@@ -152,10 +152,13 @@ default_config: ConfigDict = {
     "preload_modules": None,
     "load_external_modules": False,
     "allow_inspection": True,
+    "force_inspection": False,
     "summary": True,
     "show_docstring_classes": True,
     "show_docstring_functions": True,
     "show_docstring_modules": True,
+    "extensions": [],
+    "search_paths": [],
 }
 ```
 
@@ -182,10 +185,12 @@ Attributes:
 
 - **`allow_inspection`** (`bool`) – Allow using introspection on modules for which sources aren't available (compiled modules, etc.).
 - **`annotations_path`** (`Literal['brief', 'source', 'full']`) – The verbosity for annotations path: brief (recommended), source (as written in the source), or full.
-- **`docstring_options`** (`dict`) – mkdocstring configuration
+- **`docstring_options`** (`DocstringOptions`) – mkdocstring configuration
 - **`docstring_section_style`** (`Literal['list', 'table']`) – The style used to render docstring sections.
 - **`docstring_style`** (`Literal['google', 'numpy', 'sphinx', 'auto'] | None`) – The style in which docstrings are written: auto, google, numpy, sphinx, or None.
+- **`extensions`** (`list[LoadableExtensionType]`) – A list of Griffe extensions to load.
 - **`filters`** (`list[str] | list[tuple[Pattern[str], bool]]`) – A list of filters.
+- **`force_inspection`** (`bool`) – Force using introspection on modules even if sources are available.
 - **`group_by_category`** (`bool`) – Group the object's children by categories: attributes, classes, functions, and modules.
 - **`heading_level`** (`int`) – The initial heading level to use.
 - **`inherited_members`** (`bool | list[str]`) – A boolean, or an explicit list of inherited members to render.
@@ -195,6 +200,7 @@ Attributes:
 - **`members_order`** (`Literal['alphabetical', 'source']`) – The members ordering to use.
 - **`merge_init_into_class`** (`bool`) – Whether to merge the __init__ method into the class' signature and docstring.
 - **`preload_modules`** (`list[str] | None`) – Pre-load modules that are not specified directly in autodoc instructions (::: identifier).
+- **`search_paths`** (`list[str]`) – A list of paths to search packages into.
 - **`separate_signature`** (`bool`) – Whether to put the whole signature in a code block below the heading.
 - **`show_bases`** (`bool`) – Show the base classes of a class.
 - **`show_category_heading`** (`bool`) – When grouped by categories, show a heading for each category.
@@ -241,7 +247,7 @@ The verbosity for annotations path: `brief` (recommended), `source` (as written 
 ### docstring_options
 
 ```
-docstring_options: dict
+docstring_options: DocstringOptions
 ```
 
 mkdocstring [configuration](https://mkdocstrings.github.io/python/usage/configuration/general/)
@@ -264,6 +270,14 @@ docstring_style: (
 
 The style in which docstrings are written: `auto`, `google`, `numpy`, `sphinx`, or `None`.
 
+### extensions
+
+```
+extensions: list[LoadableExtensionType]
+```
+
+A list of Griffe extensions to load.
+
 ### filters
 
 ```
@@ -273,6 +287,14 @@ filters: list[str] | list[tuple[Pattern[str], bool]]
 A list of filters.
 
 A filter starting with `!` will exclude matching objects instead of including them. The `members` option takes precedence over `filters` (filters will still be applied recursively to lower members in the hierarchy).
+
+### force_inspection
+
+```
+force_inspection: bool
+```
+
+Force using introspection on modules even if sources are available.
 
 ### group_by_category
 
@@ -358,6 +380,14 @@ It is useful when you want to render documentation for a particular member of an
 For an imported member to be rendered, you need to add it to the `__all__` attribute of the importing module.
 
 The modules must be listed as an array of strings.
+
+### search_paths
+
+```
+search_paths: list[str]
+```
+
+A list of paths to search packages into.
 
 ### separate_signature
 
@@ -1473,6 +1503,10 @@ Parameters:
 - **`obj`** (`Object`) – The Griffe object to render docs for.
 - **`config`** (`ConfigDict | None`, default: `None` ) – The rendering configuration.
 
+Warning
+
+When using this function programmatically, options such as `docstring_style` and `docstring_options` must be passed to the Griffe loader so that they are correctly set when loading data. Check griffe.GriffeLoader for more information.
+
 Returns:
 
 - `str` – Markdown.
@@ -1486,6 +1520,12 @@ def render_object_docs(obj: Object, config: ConfigDict | None = None) -> str:
     Parameters:
         obj: The Griffe object to render docs for.
         config: The rendering configuration.
+
+    Warning:
+        When using this function programmatically,
+        options such as `docstring_style` and `docstring_options` must be passed
+        to the Griffe loader so that they are correctly set when loading data.
+        Check [`griffe.GriffeLoader`][] for more information.
 
     Returns:
         Markdown.
@@ -1530,7 +1570,16 @@ def render_package_docs(package: str, config: ConfigDict | None = None) -> str:
     """
     config = cast("ConfigDict", {**default_config, **(config or {})})
     parser = config["docstring_style"] and Parser(config["docstring_style"])
-    loader = GriffeLoader(docstring_parser=parser)
+    parser_options: DocstringOptions = config["docstring_options"]
+    extensions = load_extensions(*config["extensions"]) if config["extensions"] else None
+    loader = GriffeLoader(
+        extensions=extensions,
+        search_paths=config["search_paths"] + sys.path,
+        docstring_parser=parser,
+        docstring_options=parser_options,
+        allow_inspection=config["allow_inspection"],
+        force_inspection=config["force_inspection"],
+    )
     module = loader.load(package)
     loader.resolve_aliases(external=True)
     return render_object_docs(module, config)  # type: ignore[arg-type]
