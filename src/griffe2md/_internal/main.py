@@ -6,14 +6,14 @@ from pathlib import Path
 from typing import IO, TYPE_CHECKING, cast
 
 import mdformat
-from griffe import GriffeLoader, Parser
+from griffe import GriffeLoader, Parser, load_extensions
 from jinja2 import Environment, FileSystemLoader
 
 from griffe2md._internal import rendering
 from griffe2md._internal.config import ConfigDict, default_config
 
 if TYPE_CHECKING:
-    from griffe import Object
+    from griffe import DocstringOptions, Object
 
 
 def _output(text: str, to: IO | str | None = None) -> None:
@@ -122,6 +122,12 @@ def render_object_docs(obj: Object, config: ConfigDict | None = None) -> str:
         obj: The Griffe object to render docs for.
         config: The rendering configuration.
 
+    Warning:
+        When using this function programmatically,
+        options such as `docstring_style` and `docstring_options` must be passed
+        to the Griffe loader so that they are correctly set when loading data.
+        Check [`griffe.GriffeLoader`][] for more information.
+
     Returns:
         Markdown.
     """
@@ -143,7 +149,16 @@ def render_package_docs(package: str, config: ConfigDict | None = None) -> str:
     """
     config = cast("ConfigDict", {**default_config, **(config or {})})
     parser = config["docstring_style"] and Parser(config["docstring_style"])
-    loader = GriffeLoader(docstring_parser=parser)
+    parser_options: DocstringOptions = config["docstring_options"]
+    extensions = load_extensions(*config["extensions"]) if config["extensions"] else None
+    loader = GriffeLoader(
+        extensions=extensions,
+        search_paths=config["search_paths"] + sys.path,
+        docstring_parser=parser,
+        docstring_options=parser_options,
+        allow_inspection=config["allow_inspection"],
+        force_inspection=config["force_inspection"],
+    )
     module = loader.load(package)
     loader.resolve_aliases(external=True)
     return render_object_docs(module, config)  # type: ignore[arg-type]

@@ -14,6 +14,8 @@ else:
 if TYPE_CHECKING:
     from re import Pattern
 
+    from griffe import DocstringOptions, LoadableExtensionType
+
 _logger = logging.getLogger(__name__)
 
 CONFIG_FILE_PATHS = (
@@ -59,7 +61,7 @@ class ConfigDict(TypedDict):
     annotations_path: Literal["brief", "source", "full"]
     """The verbosity for annotations path: `brief` (recommended), `source` (as written in the source), or `full`."""
 
-    docstring_options: dict
+    docstring_options: DocstringOptions
     """mkdocstring [configuration](https://mkdocstrings.github.io/python/usage/configuration/general/)"""
 
     docstring_section_style: Literal["list", "table"]
@@ -68,6 +70,9 @@ class ConfigDict(TypedDict):
     docstring_style: Literal["google", "numpy", "sphinx", "auto"] | None
     """The style in which docstrings are written: `auto`, `google`, `numpy`, `sphinx`, or `None`."""
 
+    extensions: list[LoadableExtensionType]
+    """A list of Griffe extensions to load."""
+
     filters: list[str] | list[tuple[Pattern[str], bool]]
     """A list of filters.
 
@@ -75,6 +80,9 @@ class ConfigDict(TypedDict):
     The `members` option takes precedence over `filters` (filters will still be applied recursively
     to lower members in the hierarchy).
     """
+
+    force_inspection: bool
+    """Force using introspection on modules even if sources are available."""
 
     group_by_category: bool
     """Group the object's children by categories: attributes, classes, functions, and modules."""
@@ -124,6 +132,9 @@ class ConfigDict(TypedDict):
 
     The modules must be listed as an array of strings.
     """
+
+    search_paths: list[str]
+    """A list of paths to search packages into."""
 
     separate_signature: bool
     """Whether to put the whole signature in a code block below the heading.
@@ -248,9 +259,12 @@ default_config: ConfigDict = {
     "preload_modules": None,
     "load_external_modules": False,
     "allow_inspection": True,
+    "force_inspection": False,
     "summary": True,
     "show_docstring_classes": True,
     "show_docstring_functions": True,
     "show_docstring_modules": True,
+    "extensions": [],
+    "search_paths": [],
 }
 """Default configuration values."""

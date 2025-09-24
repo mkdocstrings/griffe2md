@@ -109,6 +109,7 @@ plugins:
       python:
         inventories:
         - https://docs.python.org/3/objects.inv
+        - https://mkdocstrings.github.io/griffe/objects.inv
         paths: [src]
         options:
           backlinks: tree
