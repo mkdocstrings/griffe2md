@@ -4,9 +4,9 @@
 
 Type | Description
 ---- | -----------
-{%- for raises in section.value %}
+{% for raises in section.value %}
 {%- if raises.annotation -%}{%- with expression = raises.annotation -%}<code>{%- include "expression.md.jinja" with context -%}</code>{%- endwith -%}{%- endif -%} | {{ raises.description }}
-{%- endfor -%}
+{% endfor %}
 
 {%- elif config.docstring_section_style == "list" %}
 

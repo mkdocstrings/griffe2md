@@ -4,9 +4,9 @@
 
 Type | Description
 ---- | -----------
-{%- for warns in section.value %}
+{% for warns in section.value %}
 {%- if warns.annotation -%}{%- with expression = warns.annotation -%}<code>{%- include "expression.md.jinja" with context -%}</code>{%- endwith -%}{%- endif -%} | {{ warns.description }}
-{%- endfor -%}
+{% endfor %}
 
 {%- elif config.docstring_section_style == "list" %}
 
