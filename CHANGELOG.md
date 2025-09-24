@@ -6,6 +6,19 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.2.4](https://github.com/mkdocstrings/griffe2md/releases/tag/1.2.4) - 2025-09-24
+
+<small>[Compare with 1.2.3](https://github.com/mkdocstrings/griffe2md/compare/1.2.3...1.2.4)</small>
+
+### Build
+
+- Depend on Griffe 1.14 ([ba2595f](https://github.com/mkdocstrings/griffe2md/commit/ba2595f2dc6d13698b5c78dc04346ecf1a77f24e) by Timothée Mazzucotelli).
+
+### Bug Fixes
+
+- Support Griffe loader options, correctly pass them to the loader ([8b4363b](https://github.com/mkdocstrings/griffe2md/commit/8b4363becd8ea8b1366e813ecee595ad680eb567) by Timothée Mazzucotelli). [Issue-13](https://github.com/mkdocstrings/griffe2md/issues/13)
+- Fix table rendering issue (no newline after separation or between items) ([cfe0f3d](https://github.com/mkdocstrings/griffe2md/commit/cfe0f3de8564b7ebd56d3e6293e681cc3ff08cb0) by Timothée Mazzucotelli).
+
 ## [1.2.3](https://github.com/mkdocstrings/griffe2md/releases/tag/1.2.3) - 2025-09-09
 
 <small>[Compare with 1.2.2](https://github.com/mkdocstrings/griffe2md/compare/1.2.2...1.2.3)</small>
