@@ -498,3 +498,7 @@ def do_as_modules_section(modules: Sequence[Module], *, check_public: bool = Tru
             if not check_public or module.is_public or from_private_package(module)
         ],
     )
+
+
+def _newline_to_br(text: str) -> str:
+    return text.replace("\n\n", "<br>").replace("\n", " ")

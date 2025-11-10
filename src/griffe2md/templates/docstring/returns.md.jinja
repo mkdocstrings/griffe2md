@@ -6,7 +6,7 @@
 {% if name_column -%}Name | {% endif -%}Type | Description
 {% if name_column -%}---- | {% endif -%}---- | -----------
 {% for returns in section.value %}
-{%- if name_column -%}{%- if returns.name -%}`{{ returns.name }}`{%- endif %} | {% endif %}{% if returns.annotation -%}{%- with expression = returns.annotation -%}<code>{%- include "expression.md.jinja" with context -%}</code>{%- endwith -%}{%- endif %} | {{ returns.description }}
+{%- if name_column -%}{%- if returns.name -%}`{{ returns.name }}`{%- endif %} | {% endif %}{% if returns.annotation -%}{%- with expression = returns.annotation -%}<code>{%- include "expression.md.jinja" with context -%}</code>{%- endwith -%}{%- endif %} | {{ returns.description|newline_to_br }}
 {% endfor %}
 
 {%- elif config.docstring_section_style == "list" %}

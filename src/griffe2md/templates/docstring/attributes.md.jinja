@@ -5,7 +5,7 @@
 Name | Type | Description
 ---- | ---- | -----------
 {%- for attribute in section.value %}
-[`{{ attribute.name }}`](#{{ obj.path }}.{{ attribute.name }}) | {% if attribute.annotation -%}{%- with expression = attribute.annotation -%}<code>{%- include "expression.md.jinja" with context -%}</code>{%- endwith -%}{%- endif %} | {{ attribute.description }}
+[`{{ attribute.name }}`](#{{ obj.path }}.{{ attribute.name }}) | {% if attribute.annotation -%}{%- with expression = attribute.annotation -%}<code>{%- include "expression.md.jinja" with context -%}</code>{%- endwith -%}{%- endif %} | {{ attribute.description|newline_to_br }} }}
 {%- endfor -%}
 
 {%- elif config.docstring_section_style == "list" %}

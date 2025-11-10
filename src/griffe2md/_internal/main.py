@@ -111,6 +111,7 @@ def prepare_env(env: Environment | None = None) -> Environment:
     env.filters["split_path"] = rendering.do_split_path
     env.filters["stash_crossref"] = lambda ref, length: ref
     env.filters["from_private_package"] = rendering.from_private_package
+    env.filters["newline_to_br"] = rendering._newline_to_br
 
     return env
 

@@ -5,7 +5,7 @@
 Name | Description
 ---- | -----------
 {%- for function in section.value %}
-[`{{ function.name }}`](#{{ obj.path }}.{{ function.name }}) | {{ function.description }}
+[`{{ function.name }}`](#{{ obj.path }}.{{ function.name }}) | {{ function.description|newline_to_br }}
 {%- endfor -%}
 
 {%- elif config.docstring_section_style == "list" %}
