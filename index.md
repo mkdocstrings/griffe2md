@@ -45,3 +45,5 @@ docstring_style = "sphinx"
 ```
 
 See [the documentation](https://mkdocstrings.github.io/griffe2md/reference/griffe2md/config/#griffe2md.config.ConfigDict) for reference.
+
+## Sponsors
