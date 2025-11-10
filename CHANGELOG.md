@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.2.6](https://github.com/mkdocstrings/griffe2md/releases/tag/1.2.6) - 2025-11-10
+
+<small>[Compare with 1.2.5](https://github.com/mkdocstrings/griffe2md/compare/1.2.5...1.2.6)</small>
+
+### Bug Fixes
+
+- Replace newlines with `<br>` tags in table descriptions ([afd7ef0](https://github.com/mkdocstrings/griffe2md/commit/afd7ef0856c317064281d5ab3490e4d0ea437142) by Timothée Mazzucotelli). [Issue-16](https://github.com/mkdocstrings/griffe2md/issues/16)
+
 ## [1.2.5](https://github.com/mkdocstrings/griffe2md/releases/tag/1.2.5) - 2025-10-02
 
 <small>[Compare with 1.2.4](https://github.com/mkdocstrings/griffe2md/compare/1.2.4...1.2.5)</small>
