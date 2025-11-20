@@ -1438,7 +1438,10 @@ def prepare_env(env: Environment | None = None) -> Environment:
 
 ```
 render_object_docs(
-    obj: Object, config: ConfigDict | None = None
+    obj: Object,
+    config: ConfigDict | None = None,
+    *,
+    format_md: bool = True,
 ) -> str
 ```
 
@@ -1448,6 +1451,7 @@ Parameters:
 
 - **`obj`** (`Object`) – The Griffe object to render docs for.
 - **`config`** (`ConfigDict | None`, default: `None` ) – The rendering configuration.
+- **`format_md`** (`bool`, default: `True` ) – Whether to format the resulting Markdown.
 
 Warning
 
@@ -1460,12 +1464,13 @@ Returns:
 Source code in `src/griffe2md/_internal/main.py`
 
 ```
-def render_object_docs(obj: Object, config: ConfigDict | None = None) -> str:
+def render_object_docs(obj: Object, config: ConfigDict | None = None, *, format_md: bool = True) -> str:
     """Render docs for a given object.
 
     Parameters:
         obj: The Griffe object to render docs for.
         config: The rendering configuration.
+        format_md: Whether to format the resulting Markdown.
 
     Warning:
         When using this function programmatically,
@@ -1479,14 +1484,23 @@ def render_object_docs(obj: Object, config: ConfigDict | None = None) -> str:
     env = prepare_env()
     context = prepare_context(obj, config)
     rendered = env.get_template(f"{obj.kind.value}.md.jinja").render(**context)
-    return mdformat.text(rendered)
+    if format_md:
+        rendered = mdformat.text(
+            rendered,
+            options={"number": "yes", "wrap": "no"},
+            extensions=("tables",),
+        )
+    return rendered
 ```
 
 ## render_package_docs
 
 ```
 render_package_docs(
-    package: str, config: ConfigDict | None = None
+    package: str,
+    config: ConfigDict | None = None,
+    *,
+    format_md: bool = True,
 ) -> str
 ```
 
@@ -1496,6 +1510,7 @@ Parameters:
 
 - **`package`** (`str`) – The package (name) to render docs for.
 - **`config`** (`ConfigDict | None`, default: `None` ) – The rendering configuration.
+- **`format_md`** (`bool`, default: `True` ) – Whether to format the resulting Markdown.
 
 Returns:
 
@@ -1504,12 +1519,13 @@ Returns:
 Source code in `src/griffe2md/_internal/main.py`
 
 ```
-def render_package_docs(package: str, config: ConfigDict | None = None) -> str:
+def render_package_docs(package: str, config: ConfigDict | None = None, *, format_md: bool = True) -> str:
     """Render docs for a given package.
 
     Parameters:
         package: The package (name) to render docs for.
         config: The rendering configuration.
+        format_md: Whether to format the resulting Markdown.
 
     Returns:
         Markdown.
@@ -1528,7 +1544,7 @@ def render_package_docs(package: str, config: ConfigDict | None = None) -> str:
     )
     module = loader.load(package)
     loader.resolve_aliases(external=True)
-    return render_object_docs(module, config)  # type: ignore[arg-type]
+    return render_object_docs(module, config, format_md=format_md)  # type: ignore[arg-type]
 ```
 
 ## write_package_docs
@@ -1538,6 +1554,8 @@ write_package_docs(
     package: str,
     config: ConfigDict | None = None,
     output: IO | str | None = None,
+    *,
+    format_md: bool = True,
 ) -> None
 ```
 
@@ -1548,6 +1566,7 @@ Parameters:
 - **`package`** (`str`) – The package to render docs for.
 - **`config`** (`ConfigDict | None`, default: `None` ) – The rendering configuration.
 - **`output`** (`IO | str | None`, default: `None` ) – The file to write to.
+- **`format_md`** (`bool`, default: `True` ) – Whether to format the resulting Markdown.
 
 Source code in `src/griffe2md/_internal/main.py`
 
@@ -1556,6 +1575,8 @@ def write_package_docs(
     package: str,
     config: ConfigDict | None = None,
     output: IO | str | None = None,
+    *,
+    format_md: bool = True,
 ) -> None:
     """Write docs for a given package to a file or stdout.
 
@@ -1563,6 +1584,7 @@ def write_package_docs(
         package: The package to render docs for.
         config: The rendering configuration.
         output: The file to write to.
+        format_md: Whether to format the resulting Markdown.
     """
-    _output(render_package_docs(package, config), to=output)
+    _output(render_package_docs(package, config, format_md=format_md), to=output)
 ```
