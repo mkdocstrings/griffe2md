@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.3.0](https://github.com/mkdocstrings/griffe2md/releases/tag/1.3.0) - 2025-11-20
+
+<small>[Compare with 1.2.6](https://github.com/mkdocstrings/griffe2md/compare/1.2.6...1.3.0)</small>
+
+### Features
+
+- Add parameter to prevent formatting Markdown with mdformat ([8cfd626](https://github.com/mkdocstrings/griffe2md/commit/8cfd626ee995d4764d876d5300ad5486a4ab09e2) by Timothée Mazzucotelli). [Issue-18](https://github.com/mkdocstrings/griffe2md/issues/18)
+
 ## [1.2.6](https://github.com/mkdocstrings/griffe2md/releases/tag/1.2.6) - 2025-11-10
 
 <small>[Compare with 1.2.5](https://github.com/mkdocstrings/griffe2md/compare/1.2.5...1.2.6)</small>
