@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.3.1](https://github.com/mkdocstrings/griffe2md/releases/tag/1.3.1) - 2025-11-20
+
+<small>[Compare with 1.3.0](https://github.com/mkdocstrings/griffe2md/compare/1.3.0...1.3.1)</small>
+
+### Bug Fixes
+
+- Don't try using the mdformat tables extension ([859c3c6](https://github.com/mkdocstrings/griffe2md/commit/859c3c66984c48f2fe5c3c39909527ef60079486) by Timothée Mazzucotelli).
+
 ## [1.3.0](https://github.com/mkdocstrings/griffe2md/releases/tag/1.3.0) - 2025-11-20
 
 <small>[Compare with 1.2.6](https://github.com/mkdocstrings/griffe2md/compare/1.2.6...1.3.0)</small>
