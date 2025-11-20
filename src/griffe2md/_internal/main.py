@@ -140,7 +140,6 @@ def render_object_docs(obj: Object, config: ConfigDict | None = None, *, format_
         rendered = mdformat.text(
             rendered,
             options={"number": "yes", "wrap": "no"},
-            extensions=("tables",),
         )
     return rendered
 
