@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.3.2](https://github.com/mkdocstrings/griffe2md/releases/tag/1.3.2) - 2025-11-20
+
+<small>[Compare with 1.3.1](https://github.com/mkdocstrings/griffe2md/compare/1.3.1...1.3.2)</small>
+
+### Bug Fixes
+
+- Revert passing options to mdformat ([ab1561d](https://github.com/mkdocstrings/griffe2md/commit/ab1561d43511541f9b9dd8e82e92a1d597f6bbf8) by Timothée Mazzucotelli).
+
 ## [1.3.1](https://github.com/mkdocstrings/griffe2md/releases/tag/1.3.1) - 2025-11-20
 
 <small>[Compare with 1.3.0](https://github.com/mkdocstrings/griffe2md/compare/1.3.0...1.3.1)</small>
