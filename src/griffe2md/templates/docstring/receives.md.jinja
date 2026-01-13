@@ -6,7 +6,7 @@
 {% if name_column -%}Name | {% endif -%}Type | Description
 {% if name_column -%}---- | {% endif -%}---- | -----------
 {% for receives in section.value %}
-{%- if name_column -%}{%- if receives.name -%}`{{ receives.name }}`{%- endif %} | {% endif %}{% if receives.annotation -%}{%- with expression = receives.annotation -%}<code>{%- include "expression.md.jinja" with context -%}</code>{%- endwith -%}{%- endif %} | {{ receives.description|newline_to_br }}
+{%- if name_column -%}{%- if receives.name -%}`{{ receives.name }}`{%- endif %} | {% endif %}{% if receives.annotation -%}{%- with expression = receives.annotation -%}<code>{% filter replace("|", "\\|") %}{%- include "expression.md.jinja" with context -%}{% endfilter %}</code>{%- endwith -%}{%- endif %} | {{ receives.description|newline_to_br }}
 {% endfor %}
 
 {%- elif config.docstring_section_style == "list" %}

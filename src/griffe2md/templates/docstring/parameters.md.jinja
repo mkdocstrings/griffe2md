@@ -5,7 +5,7 @@
 Name | Type | Description | Default
 ---- | ---- | ----------- | -------
 {%- for parameter in section.value %}
-`{{ parameter.name }}` | {% if parameter.annotation -%}{%- with expression = parameter.annotation -%}<code>{%- include "expression.md.jinja" with context -%}</code>{%- endwith -%}{%- endif %} | {{ parameter.description|newline_to_br }} | {% if parameter.default -%}{%- with expression = parameter.default -%}<code>{%- include "expression.md.jinja" with context -%}</code>{%- endwith -%}{%- else -%}*required*{%- endif %}
+`{{ parameter.name }}` | {% if parameter.annotation -%}{%- with expression = parameter.annotation -%}<code>{% filter replace("|", "\\|") %}{%- include "expression.md.jinja" with context -%}{% endfilter %}</code>{%- endwith -%}{%- endif %} | {{ parameter.description|newline_to_br }} | {% if parameter.default -%}{%- with expression = parameter.default -%}<code>{% filter replace("|", "\\|") %}{%- include "expression.md.jinja" with context -%}{% endfilter %}</code>{%- endwith -%}{%- else -%}*required*{%- endif %}
 {%- endfor -%}
 
 {%- elif config.docstring_section_style == "list" %}
