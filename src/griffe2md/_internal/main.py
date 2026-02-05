@@ -166,7 +166,7 @@ def render_package_docs(package: str, config: ConfigDict | None = None, *, forma
     )
     module = loader.load(package)
     loader.resolve_aliases(external=True)
-    return render_object_docs(module, config, format_md=format_md)  # type: ignore[arg-type]
+    return render_object_docs(module, config, format_md=format_md)  # ty: ignore[invalid-argument-type]
 
 
 def write_package_docs(

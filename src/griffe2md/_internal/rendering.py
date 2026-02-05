@@ -118,7 +118,7 @@ def _stash_crossref(stash: dict[str, str], crossref: str, *, length: int) -> str
 
 
 def _format_signature(name: Markup, signature: str, line_length: int) -> str:
-    name = str(name).strip()  # type: ignore[assignment]
+    name = str(name).strip()  # ty: ignore[invalid-assignment]
     signature = signature.strip()
     if len(name + signature) < line_length:
         return name + signature
@@ -372,7 +372,7 @@ def do_filter_objects(
 @lru_cache(maxsize=1)
 def _get_black_formatter() -> Callable[[str, int], str]:
     try:
-        from black import InvalidInput, Mode, format_str  # noqa: PLC0415
+        from black import InvalidInput, Mode, format_str  # noqa: PLC0415  # ty: ignore[unresolved-import]
     except ModuleNotFoundError:
         _logger.info("Formatting signatures requires Black to be installed.")
         return lambda text, _: text
@@ -401,7 +401,7 @@ def from_private_package(obj: Object | Alias) -> bool:
     if not obj.is_alias:
         return False
     try:
-        return obj.target.package.name == f"_{obj.parent.package.name}"  # type: ignore[union-attr]
+        return obj.target.package.name == f"_{obj.parent.package.name}"  # ty: ignore[possibly-missing-attribute]
     except (AliasResolutionError, CyclicAliasError):
         return False
 
