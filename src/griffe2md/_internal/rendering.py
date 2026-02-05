@@ -254,12 +254,8 @@ def do_order_members(
         The same members, ordered.
     """
     if isinstance(members_list, list) and members_list:
-        sorted_members = []
         members_dict = {member.name: member for member in members}
-        for name in members_list:
-            if name in members_dict:
-                sorted_members.append(members_dict[name])
-        return sorted_members
+        return [members_dict[name] for name in members_list if name in members_dict]
     return sorted(members, key=order_map[order])
 
 
