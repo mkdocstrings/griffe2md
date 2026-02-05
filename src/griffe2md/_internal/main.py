@@ -18,7 +18,7 @@ if TYPE_CHECKING:
 
 def _output(text: str, to: IO | str | None = None) -> None:
     if isinstance(to, str):
-        with open(to, "w") as output:
+        with Path(to).open("w") as output:
             output.write(text)
     else:
         if to is None:
