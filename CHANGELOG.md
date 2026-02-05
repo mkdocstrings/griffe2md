@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.3.3](https://github.com/mkdocstrings/griffe2md/releases/tag/1.3.3) - 2026-02-05
+
+<small>[Compare with 1.3.2](https://github.com/mkdocstrings/griffe2md/compare/1.3.2...1.3.3)</small>
+
+### Bug Fixes
+
+- Remove extra `}}` in Jinja template ([cb8aeaf](https://github.com/mkdocstrings/griffe2md/commit/cb8aeaf9d230c9b702f002a9bb5cb8e85dd9a83b) by Timothée Mazzucotelli). [Issue-24](https://github.com/mkdocstrings/griffe2md/issues/24)
+- Escape pipes in table cells ([0e1da47](https://github.com/mkdocstrings/griffe2md/commit/0e1da47fad72b2bf16390358dfc68ec76a13f204) by Timothée Mazzucotelli). [Issue-22](https://github.com/mkdocstrings/griffe2md/issues/22)
+
 ## [1.3.2](https://github.com/mkdocstrings/griffe2md/releases/tag/1.3.2) - 2025-11-20
 
 <small>[Compare with 1.3.1](https://github.com/mkdocstrings/griffe2md/compare/1.3.1...1.3.2)</small>
