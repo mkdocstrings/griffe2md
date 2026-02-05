@@ -1150,12 +1150,8 @@ def do_order_members(
         The same members, ordered.
     """
     if isinstance(members_list, list) and members_list:
-        sorted_members = []
         members_dict = {member.name: member for member in members}
-        for name in members_list:
-            if name in members_dict:
-                sorted_members.append(members_dict[name])
-        return sorted_members
+        return [members_dict[name] for name in members_list if name in members_dict]
     return sorted(members, key=order_map[order])
 ```
 
@@ -1237,7 +1233,7 @@ def from_private_package(obj: Object | Alias) -> bool:
     if not obj.is_alias:
         return False
     try:
-        return obj.target.package.name == f"_{obj.parent.package.name}"  # type: ignore[union-attr]
+        return obj.target.package.name == f"_{obj.parent.package.name}"  # ty: ignore[possibly-missing-attribute]
     except (AliasResolutionError, CyclicAliasError):
         return False
 ```
@@ -1540,7 +1536,7 @@ def render_package_docs(package: str, config: ConfigDict | None = None, *, forma
     )
     module = loader.load(package)
     loader.resolve_aliases(external=True)
-    return render_object_docs(module, config, format_md=format_md)  # type: ignore[arg-type]
+    return render_object_docs(module, config, format_md=format_md)  # ty: ignore[invalid-argument-type]
 ```
 
 ## write_package_docs

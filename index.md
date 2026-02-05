@@ -54,4 +54,4 @@ See [the documentation](https://mkdocstrings.github.io/griffe2md/reference/griff
 
 ______________________________________________________________________
 
-*And 8 more private sponsor(s).*
+*And 7 more private sponsor(s).*
