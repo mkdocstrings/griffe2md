@@ -8,7 +8,7 @@ import string
 import sys
 from functools import lru_cache, partial
 from re import Pattern
-from typing import TYPE_CHECKING, Any, Callable
+from typing import TYPE_CHECKING, Any
 
 from griffe import (
     AliasResolutionError,
@@ -25,7 +25,7 @@ from griffe import (
 from jinja2 import pass_context
 
 if TYPE_CHECKING:
-    from collections.abc import Sequence
+    from collections.abc import Callable, Sequence
 
     from griffe import Alias, Attribute, Class, Function, Module, Object
     from jinja2.runtime import Context
@@ -397,7 +397,7 @@ def from_private_package(obj: Object | Alias) -> bool:
     if not obj.is_alias:
         return False
     try:
-        return obj.target.package.name == f"_{obj.parent.package.name}"  # ty: ignore[possibly-missing-attribute]
+        return obj.target.package.name == f"_{obj.parent.package.name}"  # ty: ignore[unresolved-attribute]
     except (AliasResolutionError, CyclicAliasError):
         return False
 
