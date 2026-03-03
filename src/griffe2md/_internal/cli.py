@@ -16,7 +16,7 @@ import sys
 from typing import Any
 
 from griffe2md._internal import debug
-from griffe2md._internal.config import load_config
+from griffe2md._internal.config import ConfigDict, load_config
 from griffe2md._internal.main import write_package_docs
 
 
@@ -44,6 +44,12 @@ def get_parser() -> argparse.ArgumentParser:
         help="Whether to format the resulting Markdown using `mdformat`.",
     )
     parser.add_argument("-o", "--output", default=None, help="File to write to. Default: stdout.")
+    parser.add_argument(
+        "--mdformat-extensions",
+        nargs="*",
+        default=[],
+        help="mdformat extensions to enable (e.g. 'tables'). Requires the corresponding mdformat plugin to be installed.",
+    )
     parser.add_argument("-V", "--version", action="version", version=f"%(prog)s {debug._get_version()}")
     parser.add_argument("--debug-info", action=_DebugInfo, help="Print debug information.")
     return parser
@@ -62,7 +68,11 @@ def main(args: list[str] | None = None) -> int:
     """
     parser = get_parser()
     opts = parser.parse_args(args=args)
-    config = load_config()
+    config: ConfigDict | None = load_config()
+
+    if opts.mdformat_extensions:
+        config = ConfigDict() if config is None else config
+        config["mdformat_extensions"] = opts.mdformat_extensions
 
     write_package_docs(opts.package, config, opts.output, format_md=opts.format_md)
     return 0
