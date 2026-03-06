@@ -30,4 +30,4 @@ def test_load_config(tmpdir: py.path.local, rel_path: Path) -> None:
 
         griffe2md.main(["griffe2md"])
 
-    mock_write.assert_called_once_with("griffe2md", expected_config, None)
+    mock_write.assert_called_once_with("griffe2md", expected_config, None, format_md=False)

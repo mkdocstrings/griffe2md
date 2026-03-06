@@ -37,6 +37,12 @@ def get_parser() -> argparse.ArgumentParser:
     """
     parser = argparse.ArgumentParser(prog="griffe2md")
     parser.add_argument("package", help="The package to output Markdown docs for.")
+    parser.add_argument(
+        "-f",
+        "--format-md",
+        action="store_true",
+        help="Whether to format the resulting Markdown using `mdformat`.",
+    )
     parser.add_argument("-o", "--output", default=None, help="File to write to. Default: stdout.")
     parser.add_argument("-V", "--version", action="version", version=f"%(prog)s {debug._get_version()}")
     parser.add_argument("--debug-info", action=_DebugInfo, help="Print debug information.")
@@ -58,5 +64,5 @@ def main(args: list[str] | None = None) -> int:
     opts = parser.parse_args(args=args)
     config = load_config()
 
-    write_package_docs(opts.package, config, opts.output)
+    write_package_docs(opts.package, config, opts.output, format_md=opts.format_md)
     return 0

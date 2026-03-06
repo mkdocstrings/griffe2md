@@ -116,7 +116,7 @@ def prepare_env(env: Environment | None = None) -> Environment:
     return env
 
 
-def render_object_docs(obj: Object, config: ConfigDict | None = None, *, format_md: bool = True) -> str:
+def render_object_docs(obj: Object, config: ConfigDict | None = None, *, format_md: bool = False) -> str:
     """Render docs for a given object.
 
     Parameters:
@@ -141,7 +141,7 @@ def render_object_docs(obj: Object, config: ConfigDict | None = None, *, format_
     return rendered
 
 
-def render_package_docs(package: str, config: ConfigDict | None = None, *, format_md: bool = True) -> str:
+def render_package_docs(package: str, config: ConfigDict | None = None, *, format_md: bool = False) -> str:
     """Render docs for a given package.
 
     Parameters:
@@ -174,7 +174,7 @@ def write_package_docs(
     config: ConfigDict | None = None,
     output: IO | str | None = None,
     *,
-    format_md: bool = True,
+    format_md: bool = False,
 ) -> None:
     """Write docs for a given package to a file or stdout.
 
