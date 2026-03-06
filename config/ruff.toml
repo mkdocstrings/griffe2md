@@ -53,6 +53,7 @@ ignore = [
     "ARG005",  # Unused lambda argument
     "FBT001",  # Boolean positional arg in function definition
     "PLR2004",  # Magic value used in comparison
+    "RUF001",  # String contains ambiguous `–` (EN DASH)
     "S101",  # Use of assert detected
 ]
 

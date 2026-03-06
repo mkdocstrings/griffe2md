@@ -261,7 +261,7 @@ def do_order_members(
 
 def do_heading(content: str, heading_level: int) -> str:
     """Render a Markdown heading."""
-    return f"\n{'#' * heading_level} {content}\n\n"
+    return f"{'#' * heading_level} {content}"
 
 
 def do_split_path(path: str, full_path: str) -> list[tuple[str, str]]:
@@ -497,4 +497,4 @@ def do_as_modules_section(modules: Sequence[Module], *, check_public: bool = Tru
 
 
 def _newline_to_br(text: str) -> str:
-    return text.replace("\n\n", "<br>").replace("\n", " ")
+    return text.replace("\n\n", "<br>").strip().replace("\n", " ")

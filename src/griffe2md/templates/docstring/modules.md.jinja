@@ -1,5 +1,4 @@
-{%- if config.docstring_section_style == "table" %}
-
+{%- if config.docstring_section_style == "table" -%}
 **{{ section.title or "Modules:" }}**
 
 Name | Description
@@ -8,10 +7,9 @@ Name | Description
 [`{{ module.name }}`](#{{ obj.path }}.{{ module.name }}) | {{ module.description|newline_to_br }}
 {%- endfor -%}
 
-{%- elif config.docstring_section_style == "list" %}
-
+{%- elif config.docstring_section_style == "list" -%}
 **{{ section.title or "Modules:" }}**
 {% for module in section.value %}
 - [**{{ module.name }}**](#{{ obj.path }}.{{ module.name }}) – {{ module.description }}
 {%- endfor -%}
-{%- endif -%}
+{%- endif %}

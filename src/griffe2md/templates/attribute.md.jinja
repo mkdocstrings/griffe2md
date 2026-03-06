@@ -9,14 +9,16 @@
 {%- endif -%}
 
 {%- with obj = attribute, attribute_name = attribute.path if show_full_path else attribute.name -%}
-{%- if not root or config.show_root_heading %}
+{%- if not root or config.show_root_heading -%}
 
-{% filter heading(heading_level) -%}
+{%- filter heading(heading_level) -%}
 {%- if config.separate_signature -%}
 `{{ attribute_name }}`
-{%- else -%}
+
+{% else -%}
 `{{- attribute_name }}{% if attribute.annotation -%}: {{ attribute.annotation }}{%- endif -%}`
-{%- endif -%}
+
+{% endif -%}
 {%- endfilter -%}
 
 {%- if config.separate_signature -%}
@@ -27,11 +29,12 @@
 {%- if attribute.value %} = {{ attribute.value|safe }}{%- endif -%}
 {%- endfilter %}
 ```
-{%- endif %}
+
+{% endif -%}
 
 {%- else -%}
-{%- if config.show_root_toc_entry %}
-{% filter heading(heading_level) -%}
+{%- if config.show_root_toc_entry -%}
+{%- filter heading(heading_level) -%}
 {%- endfilter -%}
 {%- endif -%}
 {%- set heading_level = heading_level - 1 -%}
@@ -40,4 +43,4 @@
 {%- with docstring_sections = attribute.docstring.parsed -%}
 {%- include "docstring.md.jinja" with context -%}
 {%- endwith -%}
-{%- endwith -%}
+{%- endwith %}

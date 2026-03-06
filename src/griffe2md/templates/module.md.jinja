@@ -9,11 +9,12 @@
 {%- endif -%}
 
 {%- with obj = module, module_name = module.path if show_full_path else module.name -%}
-{%- if not root or config.show_root_heading %}
+{%- if not root or config.show_root_heading -%}
 
-{% filter heading(heading_level) -%}
+{%- filter heading(heading_level) -%}
 `{{ module_name }}`
-{%- endfilter -%}
+
+{% endfilter -%}
 
 {%- else -%}
 {%- set heading_level = heading_level - 1 -%}
@@ -23,9 +24,9 @@
 {%- include "docstring.md.jinja" with context -%}
 {%- endwith -%}
 
-{% include "summary.md.jinja" with context %}
+{%- include "summary.md.jinja" with context -%}
 
 {%- set root = False -%}
 {%- set heading_level = heading_level + 1 -%}
 {%- include "children.md.jinja" with context -%}
-{%- endwith -%}
+{%- endwith %}

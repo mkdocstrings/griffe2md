@@ -1,18 +1,28 @@
-{%- if config.docstring_section_style == "table" %}
-
+{%- if config.docstring_section_style == "table" -%}
 {%- set name_column = section.value|selectattr("name")|any -%}
 **{{ section.title or "Returns:" }}**
 
 {% if name_column -%}Name | {% endif -%}Type | Description
 {% if name_column -%}---- | {% endif -%}---- | -----------
-{% for returns in section.value %}
-{%- if name_column -%}{%- if returns.name -%}`{{ returns.name }}`{%- endif %} | {% endif %}{% if returns.annotation -%}{%- with expression = returns.annotation -%}<code>{% filter replace("|", "\\|") %}{%- include "expression.md.jinja" with context -%}{% endfilter %}</code>{%- endwith -%}{%- endif %} | {{ returns.description|newline_to_br }}
-{% endfor %}
+{%- for returns in section.value %}
+{% if name_column -%}
+{%- if returns.name -%}
+`{{ returns.name }}`
+{%- endif %} | {% endif -%}
+{%- if returns.annotation -%}
+{%- with expression = returns.annotation -%}
+<code>
+{%- filter replace("|", "\\|") -%}
+{%- include "expression.md.jinja" with context -%}
+{%- endfilter -%}
+</code>
+{%- endwith -%}
+{%- endif %} | {{ returns.description|newline_to_br -}}
+{%- endfor -%}
 
-{%- elif config.docstring_section_style == "list" %}
-
+{%- elif config.docstring_section_style == "list" -%}
 **{{ section.title or "Returns:" }}**
 {% for returns in section.value %}
 - {% if returns.name -%}**{{ returns.name }}**{%- endif -%}{%- if returns.annotation -%}{%- with expression = returns.annotation -%}{%- if returns.name %} ({%- endif -%}<code>{%- include "expression.md.jinja" with context -%}</code>{%- if returns.name -%}){%- endif -%}{%- endwith -%}{%- endif %} – {{ returns.description }}
 {%- endfor -%}
-{%- endif -%}
+{%- endif %}

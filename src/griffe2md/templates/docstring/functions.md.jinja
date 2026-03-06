@@ -1,5 +1,4 @@
-{%- if config.docstring_section_style == "table" %}
-
+{%- if config.docstring_section_style == "table" -%}
 **{{ section.title or "Functions:" }}**
 
 Name | Description
@@ -8,10 +7,9 @@ Name | Description
 [`{{ function.name }}`](#{{ obj.path }}.{{ function.name }}) | {{ function.description|newline_to_br }}
 {%- endfor -%}
 
-{%- elif config.docstring_section_style == "list" %}
-
+{%- elif config.docstring_section_style == "list" -%}
 **{{ section.title or "Functions:" }}**
 {% for function in section.value %}
 - [**{{ function.name }}**](#{{ obj.path }}.{{ function.name }}) – {{ function.description }}
 {%- endfor -%}
-{%- endif -%}
+{%- endif %}
