@@ -6,6 +6,19 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 <!-- insertion marker -->
+## [1.4.0](https://github.com/mkdocstrings/griffe2md/releases/tag/1.4.0) - 2026-03-06
+
+<small>[Compare with 1.3.4](https://github.com/mkdocstrings/griffe2md/compare/1.3.4...1.4.0)</small>
+
+### Features
+
+- Improve spacing in templates directly ([58e7126](https://github.com/mkdocstrings/griffe2md/commit/58e7126435573b18b040a2f22c71d29d99126c38) by Timothée Mazzucotelli). [Issue-19](https://github.com/mkdocstrings/griffe2md/issues/19)
+
+### Code Refactoring
+
+- Don't format code with mdformat by default ([6b8928f](https://github.com/mkdocstrings/griffe2md/commit/6b8928f00119c4b149e597690fe03f2e053ce077) by Timothée Mazzucotelli). [Issue-19](https://github.com/mkdocstrings/griffe2md/issues/19)
+- Mark configuration typed dict as non-total ([3636cab](https://github.com/mkdocstrings/griffe2md/commit/3636cab3bd6546482b11393b29c2cb8445dd7a7f) by Timothée Mazzucotelli).
+
 ## [1.3.4](https://github.com/mkdocstrings/griffe2md/releases/tag/1.3.4) - 2026-02-20
 
 <small>[Compare with 1.3.3](https://github.com/mkdocstrings/griffe2md/compare/1.3.3...1.3.4)</small>
