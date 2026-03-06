@@ -52,7 +52,7 @@ def load_config() -> ConfigDict | None:
     return cast("ConfigDict", config)
 
 
-class ConfigDict(TypedDict):
+class ConfigDict(TypedDict, total=False):
     """Configuration for griffe2md, griffe and mkdocstrings."""
 
     allow_inspection: bool
