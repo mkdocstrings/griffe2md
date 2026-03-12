@@ -68,7 +68,7 @@ def main(args: list[str] | None = None) -> int:
     """
     parser = get_parser()
     opts = parser.parse_args(args=args)
-    config: ConfigDict | None = load_config()
+    config = load_config()
 
     if opts.mdformat_extensions:
         config = ConfigDict() if config is None else config
