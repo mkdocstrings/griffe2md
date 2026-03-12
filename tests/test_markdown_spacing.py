@@ -2,13 +2,13 @@
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any, cast
+from typing import TYPE_CHECKING, Any
 
 import griffe
 import pytest
 from griffe import GriffeLoader, Parser
 
-from griffe2md import ConfigDict, render_object_docs
+from griffe2md import render_object_docs
 
 if TYPE_CHECKING:
     from griffe._internal.models import Module
@@ -74,17 +74,14 @@ def _render(**kwargs: Any) -> str:
 
     return render_object_docs(
         module,
-        cast(
-            "ConfigDict",
-            {
-                "show_root_full_path": False,
-                "show_root_members_full_path": False,
-                "show_object_full_path": False,
-                "show_category_heading": False,
-                "show_signature": True,
-                **kwargs,
-            },
-        ),
+        {
+            "show_root_full_path": False,
+            "show_root_members_full_path": False,
+            "show_object_full_path": False,
+            "show_category_heading": False,
+            "show_signature": True,
+            **kwargs,
+        },
         format_md=False,
     )
 
