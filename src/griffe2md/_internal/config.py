@@ -62,7 +62,7 @@ class ConfigDict(TypedDict, total=False):
     """The verbosity for annotations path: `brief` (recommended), `source` (as written in the source), or `full`."""
 
     docstring_options: DocstringOptions
-    """mkdocstring [configuration](https://mkdocstrings.github.io/python/usage/configuration/general/)"""
+    """Docstring options understood by Griffe. See [docstring parsers](https://mkdocstrings.github.io/griffe/reference/docstrings/)."""
 
     docstring_section_style: Literal["list", "table"]
     """The style used to render docstring sections."""
