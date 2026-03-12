@@ -103,6 +103,14 @@ class ConfigDict(TypedDict, total=False):
     load_external_modules: bool
     """Whether to always load external modules/packages."""
 
+    mdformat_extensions: list[str]
+    """A list of mdformat extensions to enable when formatting Markdown output.
+
+    For example, `["tables"]` to enable the `mdformat-tables` extension,
+    which properly handles escaped pipes in table cells.
+    Users are responsible for installing such extensions in the environment.
+    """
+
     members: list[str] | bool | None
     """A boolean, or an explicit list of members to render.
 

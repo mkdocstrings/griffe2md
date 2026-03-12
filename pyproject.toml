@@ -87,6 +87,7 @@ ci = [
     "duty>=1.6",
     "griffe>=2.0",
     "inline-snapshot>=0.6",
+    "mdformat-tables>=1.0",
     "pytest>=8.2",
     "pytest-cov>=5.0",
     "pytest-randomly>=3.15",

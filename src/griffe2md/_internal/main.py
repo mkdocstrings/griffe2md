@@ -137,7 +137,8 @@ def render_object_docs(obj: Object, config: ConfigDict | None = None, *, format_
     context = prepare_context(obj, config)
     rendered = env.get_template(f"{obj.kind.value}.md.jinja").render(**context)
     if format_md:
-        rendered = mdformat.text(rendered)
+        mdformat_ext = (config or {}).get("mdformat_extensions", [])
+        rendered = mdformat.text(rendered, extensions=mdformat_ext)
     return rendered
 
 
