@@ -162,7 +162,10 @@ configurations = [{targets.include = ["reference/api.md"]}]
 # ----------------------------------------------------------------------------
 [project.plugins.mkdocstrings.handlers.python]
 paths = ["src"]
-inventories = ["https://docs.python.org/3/objects.inv"]
+inventories = [
+  "https://docs.python.org/3/objects.inv",
+  "https://mkdocstrings.github.io/griffe/objects.inv",
+]
 
 [project.plugins.mkdocstrings.handlers.python.options]
 backlinks = "tree"
