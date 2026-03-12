@@ -108,6 +108,7 @@ class ConfigDict(TypedDict, total=False):
 
     For example, `["tables"]` to enable the `mdformat-tables` extension,
     which properly handles escaped pipes in table cells.
+    Users are responsible for installing such extensions in the environment.
     """
 
     members: list[str] | bool | None
