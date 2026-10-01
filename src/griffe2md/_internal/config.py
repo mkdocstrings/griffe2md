@@ -19,15 +19,9 @@
 from __future__ import annotations
 
 import logging
-import sys
+import tomllib
 from pathlib import Path
 from typing import TYPE_CHECKING, Literal, TypedDict, cast
-
-# YORE: EOL 3.10: Replace block with line 2.
-if sys.version_info >= (3, 11):
-    import tomllib
-else:
-    import tomli as tomllib
 
 if TYPE_CHECKING:
     from re import Pattern

@@ -53,7 +53,7 @@ if TYPE_CHECKING:
 _logger = logging.getLogger(__name__)
 
 
-class Order(str, enum.Enum):
+class Order(enum.StrEnum):
     """Enumeration for the possible members ordering."""
 
     alphabetical = "alphabetical"
