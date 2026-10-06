@@ -7,6 +7,12 @@
         <loc>https://mkdocstrings.github.io/griffe2md/changelog/</loc>
       </url>
       <url>
+        <loc>https://mkdocstrings.github.io/griffe2md/code_of_conduct/</loc>
+      </url>
+      <url>
+        <loc>https://mkdocstrings.github.io/griffe2md/contributing/</loc>
+      </url>
+      <url>
         <loc>https://mkdocstrings.github.io/griffe2md/credits/</loc>
       </url>
       <url>
@@ -14,11 +20,5 @@
       </url>
       <url>
         <loc>https://mkdocstrings.github.io/griffe2md/reference/api/</loc>
-      </url>
-      <url>
-        <loc>https://mkdocstrings.github.io/griffe2md/contributing/</loc>
-      </url>
-      <url>
-        <loc>https://mkdocstrings.github.io/griffe2md/code_of_conduct/</loc>
       </url>
 </urlset>
